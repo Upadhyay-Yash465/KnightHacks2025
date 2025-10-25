@@ -1,0 +1,27 @@
+# Core FastAPI and server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+aiofiles>=23.0.0
+
+# Transcription
+faster-whisper>=0.9.0
+
+# Firebase
+firebase-admin>=6.0.0
+
+# Note: Google ADK integration is currently simulated in agent/tools/adk_nlp_tool.py
+# For production, uncomment and configure Google Cloud AI Platform if needed:
+# google-cloud-aiplatform>=1.0.0
+
+# AMD Cloud Agents SDK (install separately or replace with your SDK)
+# amd-cloud-agents>=1.0.0
+
+# Utilities
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Optional: for enhanced ASR (faster-whisper works without these)
+# torch>=2.0.0
+# torchaudio>=2.0.0
+

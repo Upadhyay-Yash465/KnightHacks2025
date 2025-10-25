@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Your Speech - Aesop.AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                <span>Aesop.AI</span>
+            </div>
+            <nav class="nav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="record.html" class="nav-link active">Record</a>
+            </nav>
+            <div class="header-actions">
+                <div class="profile-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Record Section -->
+        <section class="record-section">
+            <div class="record-content">
+                <div class="record-instructions">
+                    <h1 class="record-main-title">
+                        <span class="gradient-text">Record Your Speech</span>
+                    </h1>
+                    <h2 class="record-subtitle">Practice and Perfect Your Communication</h2>
+                    <p class="record-description">
+                        Practice your public speaking skills and get instant AI feedback on your performance
+                    </p>
+                </div>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 1C13.1 1 14 1.9 14 3V11C14 12.1 13.1 13 12 13C10.9 13 10 12.1 10 11V3C10 1.9 10.9 1 12 1Z" fill="#DC2626"/>
+                                <path d="M19 10V12C19 15.9 15.9 19 12 19C8.1 19 5 15.9 5 12V10H7V12C7 14.8 9.2 17 12 17C14.8 17 17 14.8 17 12V10H19Z" fill="#DC2626"/>
+                                <path d="M11 22H13V24H11V22Z" fill="#DC2626"/>
+                            </svg>
+                        </div>
+                        <h3 class="tip-title">Speak Clearly</h3>
+                        <p class="tip-description">Enunciate your words and maintain a steady pace</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                <circle cx="12" cy="12" r="3" fill="#DC2626"/>
+                            </svg>
+                        </div>
+                        <h3 class="tip-title">Eye Contact</h3>
+                        <p class="tip-description">Look at the camera as if speaking to a live audience</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#DC2626"/>
+                                <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="#DC2626" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="tip-title">Confidence</h3>
+                        <p class="tip-description">Maintain confident posture and body language</p>
+                    </div>
+                </div>
+                <div class="recorder-card">
+                    <div class="recorder-header">
+                        <div class="recorder-status">
+                            <span class="status-text">
+                                <div class="status-indicator"></div>
+                                Live Recording
+                            </span>
+                        </div>
+                        <div class="recorder-controls">
+                            <button class="record-btn" id="recordBtn" onclick="toggleRecording()">
+                                <svg class="record-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 1C13.1 1 14 1.9 14 3V11C14 12.1 13.1 13 12 13C10.9 13 10 12.1 10 11V3C10 1.9 10.9 1 12 1Z" fill="currentColor"/>
+                                    <path d="M19 10V12C19 15.9 15.9 19 12 19C8.1 19 5 15.9 5 12V10H7V12C7 14.8 9.2 17 12 17C14.8 17 17 14.8 17 12V10H19Z" fill="currentColor"/>
+                                    <path d="M11 22H13V24H11V22Z" fill="currentColor"/>
+                                </svg>
+                                <span class="record-text">Start Recording</span>
+                            </button>
+                        </div>
+                        <p class="recorder-description">
+                            Click the microphone to start your public speaking practice
+                        </p>
+                    </div>
+
+                    <div class="recording-status hidden" id="recordingStatus">
+                        <div class="recording-indicator">
+                            <div class="pulse-dot"></div>
+                            <span>Recording in progress...</span>
+                        </div>
+                    </div>
+
+                    <div class="recording-preview hidden" id="recordingPreview">
+                        <div class="preview-content">
+                            <h3>Recording Complete!</h3>
+                            <p>Your speech has been recorded and is ready for analysis.</p>
+                            <div class="preview-actions">
+                                <button class="btn-secondary" onclick="uploadRecording()">Upload & Analyze</button>
+                                <button class="btn-outline" onclick="resetRecording()">Record Again</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-progress hidden" id="uploadProgress">
+                        <div class="progress-spinner"></div>
+                        <div class="progress-content">
+                            <h3>Analyzing Your Speech</h3>
+                            <p>Our AI is processing your recording and generating personalized feedback...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Content (initially hidden) -->
+                <div class="report-content hidden" id="report-content">
+                    <div class="report-card">
+                        <div class="report-header">
+                            <h2 class="report-title">Your Speech Analysis</h2>
+                            <div class="report-score">
+                                <div class="score-circle">
+                                    <span class="score-number">8.5</span>
+                                    <span class="score-label">Overall</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-metrics">
+                            <div class="metric-item">
+                                <div class="metric-label">Clarity</div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 85%"></div>
+                                </div>
+                                <div class="metric-value">8.5/10</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Pace</div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 75%"></div>
+                                </div>
+                                <div class="metric-value">7.5/10</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-label">Confidence</div>
+                                <div class="metric-bar">
+                                    <div class="metric-fill" style="width: 90%"></div>
+                                </div>
+                                <div class="metric-value">9.0/10</div>
+                            </div>
+                        </div>
+                        <div class="report-feedback">
+                            <h3>AI Feedback</h3>
+                            <div class="feedback-content">
+                                <div class="feedback-positive">
+                                    <h4>Strengths</h4>
+                                    <ul>
+                                        <li>Excellent eye contact and confident posture</li>
+                                        <li>Clear articulation and good volume control</li>
+                                        <li>Well-structured content with logical flow</li>
+                                    </ul>
+                                </div>
+                                <div class="feedback-improvements">
+                                    <h4>Areas for Improvement</h4>
+                                    <ul>
+                                        <li>Add more pauses for emphasis on key points</li>
+                                        <li>Consider using more hand gestures for engagement</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-primary" onclick="resetRecording()">Record Another Speech</button>
+                            <button class="btn-outline" onclick="window.location.href='home.html'">Back to Home</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Simple Footer for Record Page -->
+        <footer class="record-page-footer">
+            <div class="record-footer-content">
+                <p>&copy; 2025 Aesop.AI. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script src="record-script.js"></script>
+</body>
+</html>
