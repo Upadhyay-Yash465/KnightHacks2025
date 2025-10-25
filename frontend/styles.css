@@ -1244,6 +1244,10 @@ body {
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .metric-item:hover {
@@ -1289,6 +1293,10 @@ body {
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .explanation-item:hover {
