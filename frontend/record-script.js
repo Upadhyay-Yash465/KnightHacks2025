@@ -316,7 +316,6 @@ function initializeTranscriptionFeedback() {
 
 function showSuggestionPopup(wordElement) {
     console.log('showSuggestionPopup called - NEW VERSION');
-    alert('Popup function called!');
     const popup = document.getElementById('suggestionPopup');
     console.log('Main popup element:', popup);
     console.log('Popup innerHTML:', popup ? popup.innerHTML : 'No popup found');
@@ -335,6 +334,7 @@ function showSuggestionPopup(wordElement) {
     
     console.log('All elements found, proceeding with popup show');
     console.log('Popup before show:', popup);
+    console.log('About to populate content...');
     
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
@@ -348,6 +348,8 @@ function showSuggestionPopup(wordElement) {
     originalWord.textContent = original;
     suggestedWord.textContent = suggestion;
     reasonText.textContent = reason;
+    
+    console.log('Content populated:', { original, suggestion, reason });
     
     // Position popup below the clicked word
     const wordRect = wordElement.getBoundingClientRect();
