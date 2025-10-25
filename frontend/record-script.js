@@ -347,11 +347,21 @@ function showSuggestionPopup(wordElement) {
     const top = wordRect.bottom + window.scrollY + 10;
     const left = Math.max(10, wordRect.left + window.scrollX);
     
+    console.log('Positioning popup at:', { top, left, wordRect });
+    
     popup.style.top = top + 'px';
     popup.style.left = left + 'px';
     
     // Show popup
     popup.classList.remove('hidden');
+    
+    console.log('Popup classes after show:', popup.className);
+    console.log('Popup computed style:', {
+        top: popup.style.top,
+        left: popup.style.left,
+        display: getComputedStyle(popup).display,
+        visibility: getComputedStyle(popup).visibility
+    });
 }
 
 function closeSuggestionPopup() {
