@@ -80,7 +80,13 @@ body {
     letter-spacing: -0.01em;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+    color: #ffffff;
+    background: #DC2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
 .nav-link.active {
     color: #ffffff;
     background: rgba(55, 65, 81, 0.5);
