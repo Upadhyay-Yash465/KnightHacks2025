@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { Mic, MicOff, Play, Square, Upload } from 'lucide-react';
 import axios from 'axios';
 
-const API_BASE = 'https://your-cloud-run-url.run.app';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 const Recorder = ({ onRecordingComplete }) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -16,12 +16,15 @@ const Recorder = ({ onRecordingComplete }) => {
   const streamRef = useRef(null);
 
   const startRecording = useCallback(async () => {
+    console.log('🎤 Start recording clicked!');
     try {
       setError(null);
+      console.log('Requesting media access...');
       const stream = await navigator.mediaDevices.getUserMedia({ 
         audio: true, 
-        video: true 
+        video: false 
       });
+      console.log('✅ Media access granted');
       
       streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream, {
@@ -46,9 +49,10 @@ const Recorder = ({ onRecordingComplete }) => {
       mediaRecorder.start();
       setIsRecording(true);
       setRecordedChunks([]);
+      console.log('✅ Recording started');
     } catch (err) {
+      console.error('❌ Error starting recording:', err);
       setError('Failed to access microphone. Please check permissions.');
-      console.error('Error starting recording:', err);
     }
   }, []);
 
@@ -138,8 +142,12 @@ const Recorder = ({ onRecordingComplete }) => {
           <div className="flex items-center space-x-4">
             {!isRecording ? (
               <button
-                onClick={startRecording}
+                onClick={() => {
+                  console.log('Button clicked!');
+                  startRecording();
+                }}
                 className="btn-primary flex items-center space-x-2 text-lg px-8 py-4"
+                style={{ backgroundColor: '#f97316', color: 'white', padding: '1rem 2rem', borderRadius: '0.5rem', fontWeight: 'bold', cursor: 'pointer' }}
               >
                 <Mic className="w-6 h-6" />
                 <span>Start Recording</span>
