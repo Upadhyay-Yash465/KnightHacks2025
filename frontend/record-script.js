@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCamera();
     setActiveNavLink();
     initializeTranscriptionFeedback();
+    initializeEmotionGraphInteractivity();
 });
 
 async function initializeCamera() {
@@ -412,9 +413,17 @@ function updateElement(elementId, value) {
     }
 }
 
+// Global variable to store emotion data
+window.emotionData = null;
+
 function updateEmotionGraph(emotionData) {
+    window.emotionData = emotionData;
+    renderEmotionGraph();
+}
+
+function renderEmotionGraph() {
     const graphContainer = document.getElementById('emotionGraph');
-    if (!graphContainer || !emotionData) return;
+    if (!graphContainer || !window.emotionData) return;
     
     // Clear existing graph content but keep the structure
     const emotionLine = document.getElementById('emotionLine');
@@ -422,6 +431,9 @@ function updateEmotionGraph(emotionData) {
     
     if (emotionLine) emotionLine.innerHTML = '';
     if (dataPoints) dataPoints.innerHTML = '';
+    
+    // Get active emotions from legend
+    const activeEmotions = getActiveEmotions();
     
     // Create SVG for multiple emotion lines
     if (emotionLine) {
@@ -444,10 +456,17 @@ function updateEmotionGraph(emotionData) {
             'Neutral': '#6B7280'
         };
         
-        // Create lines for each emotion
-        Object.keys(emotionColors).forEach(emotion => {
-            const emotionPoints = emotionData.filter(point => point.emotion === emotion);
+        // Create lines for each active emotion
+        activeEmotions.forEach(emotion => {
+            const emotionPoints = window.emotionData.filter(point => point.emotion === emotion);
             if (emotionPoints.length > 1) {
+                // Sort points by time to ensure proper line connection
+                emotionPoints.sort((a, b) => {
+                    const timeA = parseFloat(a.time.replace(':', '.'));
+                    const timeB = parseFloat(b.time.replace(':', '.'));
+                    return timeA - timeB;
+                });
+                
                 const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 let pathData = '';
                 
@@ -469,6 +488,7 @@ function updateEmotionGraph(emotionData) {
                 path.setAttribute('opacity', '0.8');
                 path.setAttribute('stroke-linecap', 'round');
                 path.setAttribute('stroke-linejoin', 'round');
+                path.setAttribute('data-emotion', emotion);
                 
                 svg.appendChild(path);
             }
@@ -477,19 +497,48 @@ function updateEmotionGraph(emotionData) {
         emotionLine.appendChild(svg);
     }
     
-    // Add data points
+    // Add data points for active emotions only
     if (dataPoints) {
-        emotionData.forEach((point, index) => {
-            const dataPoint = document.createElement('div');
-            dataPoint.className = 'data-point';
-            dataPoint.style.top = `${point.yPosition}%`;
-            dataPoint.style.left = `${point.xPosition}%`;
-            dataPoint.setAttribute('data-time', point.time);
-            dataPoint.setAttribute('data-emotion', point.emotion);
-            dataPoint.setAttribute('data-intensity', point.intensity || '5');
-            dataPoints.appendChild(dataPoint);
+        window.emotionData.forEach((point, index) => {
+            if (activeEmotions.includes(point.emotion)) {
+                const dataPoint = document.createElement('div');
+                dataPoint.className = 'data-point';
+                dataPoint.style.top = `${point.yPosition}%`;
+                dataPoint.style.left = `${point.xPosition}%`;
+                dataPoint.setAttribute('data-time', point.time);
+                dataPoint.setAttribute('data-emotion', point.emotion);
+                dataPoint.setAttribute('data-intensity', point.intensity || '5');
+                dataPoints.appendChild(dataPoint);
+            }
         });
     }
+}
+
+function getActiveEmotions() {
+    const legendItems = document.querySelectorAll('.legend-item.active');
+    return Array.from(legendItems).map(item => item.getAttribute('data-emotion'));
+}
+
+function initializeEmotionGraphInteractivity() {
+    const legendItems = document.querySelectorAll('.legend-item');
+    
+    legendItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const emotion = this.getAttribute('data-emotion');
+            
+            // Toggle active state
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                this.classList.add('inactive');
+            } else {
+                this.classList.remove('inactive');
+                this.classList.add('active');
+            }
+            
+            // Re-render graph with updated active emotions
+            renderEmotionGraph();
+        });
+    });
 }
 
 function updateBreakdownContent(breakdownData) {
