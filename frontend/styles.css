@@ -1218,12 +1218,106 @@ body {
     font-weight: 600;
 }
 
-.reason-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    color: #9ca3af;
-    line-height: 1.5;
-}
+        .reason-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        /* Audio Analysis Box */
+        .audio-analysis-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .audio-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .metric-item {
+            background: rgba(55, 65, 81, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-item:hover {
+            border-color: rgba(220, 38, 38, 0.3);
+            background: rgba(55, 65, 81, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .metric-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #DC2626;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-score {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .audio-explanations {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .explanation-item {
+            background: rgba(55, 65, 81, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .explanation-item:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(55, 65, 81, 0.3);
+        }
+
+        .explanation-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .explanation-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* Responsive design for audio analysis */
+        @media (max-width: 768px) {
+            .audio-analysis-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
 
 .report-card {
     background: rgba(55, 65, 81, 0.3);

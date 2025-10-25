@@ -353,3 +353,39 @@ function closeSuggestionPopup() {
     popup.classList.add('hidden');
     window.currentWordElement = null;
 }
+
+// Audio Analysis Functions - Easy plug and play for backend integration
+function updateAudioAnalysis(audioData) {
+    // Update metric values
+    updateMetric('prosodyValue', audioData.prosody.value);
+    updateMetric('prosodyScore', audioData.prosody.score);
+    updateMetric('prosodyExplanation', audioData.prosody.explanation);
+    
+    updateMetric('toneValue', audioData.tone.value);
+    updateMetric('toneScore', audioData.tone.score);
+    updateMetric('toneExplanation', audioData.tone.explanation);
+    
+    updateMetric('pitchValue', audioData.pitch.value);
+    updateMetric('pitchScore', audioData.pitch.score);
+    updateMetric('pitchExplanation', audioData.pitch.explanation);
+    
+    updateMetric('speedValue', audioData.speed.value);
+    updateMetric('speedScore', audioData.speed.score);
+    updateMetric('speedExplanation', audioData.speed.explanation);
+}
+
+function updateMetric(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+// Example usage for backend integration:
+// const audioData = {
+//     prosody: { value: "Excellent", score: "9.2/10", explanation: "..." },
+//     tone: { value: "Confident", score: "8.7/10", explanation: "..." },
+//     pitch: { value: "Dynamic", score: "8.9/10", explanation: "..." },
+//     speed: { value: "Optimal", score: "8.4/10", explanation: "..." }
+// };
+// updateAudioAnalysis(audioData);
