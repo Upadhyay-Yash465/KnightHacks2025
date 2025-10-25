@@ -423,8 +423,8 @@ function updateEmotionGraph(emotionData) {
     if (emotionLine) emotionLine.innerHTML = '';
     if (dataPoints) dataPoints.innerHTML = '';
     
-    // Create SVG line connecting the points
-    if (emotionLine && emotionData.length > 1) {
+    // Create SVG for multiple emotion lines
+    if (emotionLine) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.style.position = 'absolute';
         svg.style.top = '0';
@@ -433,58 +433,47 @@ function updateEmotionGraph(emotionData) {
         svg.style.height = '100%';
         svg.style.pointerEvents = 'none';
         
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        let pathData = '';
+        // Define emotion colors
+        const emotionColors = {
+            'Happy': '#F59E0B',
+            'Angry': '#DC2626',
+            'Disgust': '#10B981',
+            'Fear': '#8B5CF6',
+            'Surprise': '#EC4899',
+            'Sad': '#3B82F6',
+            'Neutral': '#6B7280'
+        };
         
-        emotionData.forEach((point, index) => {
-            const x = point.xPosition;
-            const y = point.yPosition;
-            
-            if (index === 0) {
-                pathData += `M ${x} ${y}`;
-            } else {
-                pathData += ` L ${x} ${y}`;
+        // Create lines for each emotion
+        Object.keys(emotionColors).forEach(emotion => {
+            const emotionPoints = emotionData.filter(point => point.emotion === emotion);
+            if (emotionPoints.length > 1) {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                let pathData = '';
+                
+                emotionPoints.forEach((point, index) => {
+                    const x = point.xPosition;
+                    const y = point.yPosition;
+                    
+                    if (index === 0) {
+                        pathData += `M ${x} ${y}`;
+                    } else {
+                        pathData += ` L ${x} ${y}`;
+                    }
+                });
+                
+                path.setAttribute('d', pathData);
+                path.setAttribute('stroke', emotionColors[emotion]);
+                path.setAttribute('stroke-width', '2');
+                path.setAttribute('fill', 'none');
+                path.setAttribute('opacity', '0.8');
+                path.setAttribute('stroke-linecap', 'round');
+                path.setAttribute('stroke-linejoin', 'round');
+                
+                svg.appendChild(path);
             }
         });
         
-        path.setAttribute('d', pathData);
-        path.setAttribute('stroke', '#DC2626');
-        path.setAttribute('stroke-width', '3');
-        path.setAttribute('fill', 'none');
-        path.setAttribute('opacity', '0.9');
-        path.setAttribute('stroke-linecap', 'round');
-        path.setAttribute('stroke-linejoin', 'round');
-        
-        // Add gradient definition for the line
-        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-        const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-        gradient.setAttribute('id', 'emotionGradient');
-        gradient.setAttribute('x1', '0%');
-        gradient.setAttribute('y1', '0%');
-        gradient.setAttribute('x2', '100%');
-        gradient.setAttribute('y2', '0%');
-        
-        const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-        stop1.setAttribute('offset', '0%');
-        stop1.setAttribute('stop-color', '#DC2626');
-        
-        const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-        stop2.setAttribute('offset', '50%');
-        stop2.setAttribute('stop-color', '#FF8C00');
-        
-        const stop3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-        stop3.setAttribute('offset', '100%');
-        stop3.setAttribute('stop-color', '#10B981');
-        
-        gradient.appendChild(stop1);
-        gradient.appendChild(stop2);
-        gradient.appendChild(stop3);
-        defs.appendChild(gradient);
-        svg.appendChild(defs);
-        
-        path.setAttribute('stroke', 'url(#emotionGradient)');
-        
-        svg.appendChild(path);
         emotionLine.appendChild(svg);
     }
     
