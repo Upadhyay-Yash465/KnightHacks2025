@@ -26,7 +26,7 @@ body {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 2.5rem 0;
 }
 
 .header-content {
@@ -126,7 +126,7 @@ body {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
     position: relative;
 }
 
@@ -409,7 +409,7 @@ body {
 /* Record Section */
 .record-section {
     min-height: 100vh;
-    padding: 8rem 2rem 4rem;
+    padding: 10rem 2rem 4rem;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
