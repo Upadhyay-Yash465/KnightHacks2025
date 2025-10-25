@@ -283,20 +283,6 @@ function initializeTranscriptionFeedback() {
             e.preventDefault();
             console.log('Word clicked:', this.textContent);
             
-            // Simple test - try to show popup directly
-            const testPopup = document.getElementById('suggestionPopup');
-            if (testPopup) {
-                testPopup.classList.remove('hidden');
-                testPopup.style.display = 'block';
-                testPopup.style.position = 'fixed';
-                testPopup.style.top = '100px';
-                testPopup.style.left = '100px';
-                testPopup.style.zIndex = '9999';
-                testPopup.style.backgroundColor = 'red';
-                testPopup.style.padding = '20px';
-                testPopup.innerHTML = '<p style="color: white;">TEST POPUP</p>';
-                console.log('Test popup should be visible now');
-            }
             
             showSuggestionPopup(this);
         });
@@ -331,6 +317,9 @@ function initializeTranscriptionFeedback() {
 function showSuggestionPopup(wordElement) {
     console.log('showSuggestionPopup called');
     const popup = document.getElementById('suggestionPopup');
+    console.log('Main popup element:', popup);
+    console.log('Popup innerHTML:', popup ? popup.innerHTML : 'No popup found');
+    
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
