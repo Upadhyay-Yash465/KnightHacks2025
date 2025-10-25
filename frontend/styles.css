@@ -1266,6 +1266,8 @@ body {
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
+            text-align: center;
+            width: 100%;
         }
 
         .metric-value {
@@ -1274,6 +1276,8 @@ body {
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 0.25rem;
+            text-align: center;
+            width: 100%;
         }
 
         .metric-score {
@@ -1281,6 +1285,8 @@ body {
             font-size: 0.9rem;
             color: #9ca3af;
             font-weight: 700;
+            text-align: center;
+            width: 100%;
         }
 
         .audio-explanations {
