@@ -293,17 +293,17 @@ function initializeTranscriptionFeedback() {
     // Update popup position on scroll (only add once)
     if (!window.popupScrollListenerAdded) {
         window.addEventListener('scroll', function() {
-            if (window.currentWordElement) {
-                const popup = document.getElementById('suggestionPopup');
-                if (popup && !popup.classList.contains('hidden')) {
-                    const wordRect = window.currentWordElement.getBoundingClientRect();
-                    const top = wordRect.bottom + window.scrollY + 10;
-                    const left = Math.max(10, wordRect.left + window.scrollX);
-                    
-                    popup.style.top = top + 'px';
-                    popup.style.left = left + 'px';
-                }
+        if (window.currentWordElement) {
+            const popup = document.getElementById('suggestionPopup');
+            if (popup && !popup.classList.contains('hidden')) {
+                const wordRect = window.currentWordElement.getBoundingClientRect();
+                const top = wordRect.top - 10;
+                const left = Math.max(10, wordRect.left);
+                
+                popup.style.top = top + 'px';
+                popup.style.left = left + 'px';
             }
+        }
         });
         window.popupScrollListenerAdded = true;
     }
@@ -334,11 +334,11 @@ function showSuggestionPopup(wordElement) {
     suggestedWord.textContent = suggestion;
     reasonText.textContent = reason;
     
-    // Position popup below the clicked word
+    // Position popup above the clicked word
     const wordRect = wordElement.getBoundingClientRect();
     
-    // Calculate position relative to viewport
-    const top = wordRect.bottom + 10;
+    // Calculate position relative to viewport (above the word)
+    const top = wordRect.top - 10;
     const left = Math.max(10, wordRect.left);
     
     popup.style.top = top + 'px';
