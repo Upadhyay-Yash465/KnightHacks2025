@@ -10,6 +10,7 @@ let recordedVideoBlob = null;
 // Initialize camera on page load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing...');
+    console.log('=== NEW JAVASCRIPT VERSION LOADED ===');
     initializeCamera();
     setActiveNavLink();
     initializeTranscriptionFeedback();
