@@ -11,6 +11,7 @@ let recordedVideoBlob = null;
 document.addEventListener('DOMContentLoaded', function() {
     initializeCamera();
     setActiveNavLink();
+    initializeTranscriptionFeedback();
 });
 
 async function initializeCamera() {
@@ -269,4 +270,60 @@ function setActiveNavLink() {
     if (recordLink) {
         recordLink.classList.add('active');
     }
+}
+
+// Transcription feedback functionality
+function initializeTranscriptionFeedback() {
+    const highlightWords = document.querySelectorAll('.highlight-word');
+    const popup = document.getElementById('suggestionPopup');
+    
+    highlightWords.forEach(word => {
+        word.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSuggestionPopup(this);
+        });
+    });
+    
+    // Close popup when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.highlight-word') && !e.target.closest('.suggestion-popup')) {
+            closeSuggestionPopup();
+        }
+    });
+}
+
+function showSuggestionPopup(wordElement) {
+    const popup = document.getElementById('suggestionPopup');
+    const originalWord = document.getElementById('originalWord');
+    const suggestedWord = document.getElementById('suggestedWord');
+    const reasonText = document.getElementById('reasonText');
+    
+    // Get data from the clicked word
+    const suggestion = wordElement.getAttribute('data-suggestion');
+    const reason = wordElement.getAttribute('data-reason');
+    const original = wordElement.textContent;
+    
+    // Populate popup content
+    originalWord.textContent = original;
+    suggestedWord.textContent = suggestion;
+    reasonText.textContent = reason;
+    
+    // Position popup below the clicked word
+    const wordRect = wordElement.getBoundingClientRect();
+    const popupRect = popup.getBoundingClientRect();
+    
+    // Calculate position
+    const top = wordRect.bottom + 10;
+    const left = Math.max(10, Math.min(wordRect.left, window.innerWidth - popupRect.width - 10));
+    
+    popup.style.top = top + 'px';
+    popup.style.left = left + 'px';
+    
+    // Show popup
+    popup.classList.remove('hidden');
+}
+
+function closeSuggestionPopup() {
+    const popup = document.getElementById('suggestionPopup');
+    popup.classList.add('hidden');
 }

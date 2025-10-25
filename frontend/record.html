@@ -156,65 +156,42 @@
                     </div>
                 </div>
 
-                <!-- Report Section (integrated) -->
+                <!-- AI Feedback Report -->
                 <div id="report-content" class="report-content hidden">
-                    <div class="report-card">
-                        <div class="report-header">
-                            <h2 class="report-title">AI Feedback Report</h2>
-                            <div class="report-score">
-                                <div class="score-circle">
-                                    <div class="score-number">85</div>
-                                    <div class="score-label">Score</div>
+                    <div class="feedback-container">
+                        <!-- Box 1: Text Transcription with Highlights -->
+                        <div class="feedback-box transcription-box">
+                            <div class="feedback-box-header">
+                                <h3 class="feedback-box-title">📝 Transcription Analysis</h3>
+                                <p class="feedback-box-subtitle">Click highlighted words to see AI suggestions</p>
+                            </div>
+                            <div class="transcription-content">
+                                <div class="transcription-text" id="transcriptionText">
+                                    <p>Hello everyone, <span class="highlight-word" data-suggestion="Hello, everyone" data-reason="Adding a comma after 'Hello' improves readability and follows proper greeting punctuation.">Hello everyone</span>, thank you for <span class="highlight-word" data-suggestion="joining" data-reason="'Joining' is more specific and professional than 'coming' in this context.">coming</span> to today's presentation. I'm <span class="highlight-word" data-suggestion="excited" data-reason="'Excited' conveys more enthusiasm and engagement than 'happy'.">happy</span> to share with you our <span class="highlight-word" data-suggestion="latest" data-reason="'Latest' is more precise and current than 'new'.">new</span> findings and <span class="highlight-word" data-suggestion="insights" data-reason="'Insights' is more professional and specific than 'ideas'.">ideas</span> about the future of technology.</p>
+                                </div>
+                                <div class="suggestion-popup hidden" id="suggestionPopup">
+                                    <div class="popup-content">
+                                        <div class="popup-header">
+                                            <span class="popup-title">AI Suggestion</span>
+                                            <button class="popup-close" onclick="closeSuggestionPopup()">×</button>
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="original-word">
+                                                <span class="word-label">Original:</span>
+                                                <span class="word-text" id="originalWord"></span>
+                                            </div>
+                                            <div class="suggested-word">
+                                                <span class="word-label">Suggested:</span>
+                                                <span class="word-text" id="suggestedWord"></span>
+                                            </div>
+                                            <div class="reason">
+                                                <span class="reason-label">Why:</span>
+                                                <span class="reason-text" id="reasonText"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="report-metrics">
-                            <div class="metric-item">
-                                <div class="metric-label">Clarity</div>
-                                <div class="metric-bar">
-                                    <div class="metric-fill" style="width: 92%"></div>
-                                </div>
-                                <div class="metric-value">92%</div>
-                            </div>
-                            <div class="metric-item">
-                                <div class="metric-label">Pace</div>
-                                <div class="metric-bar">
-                                    <div class="metric-fill" style="width: 75%"></div>
-                                </div>
-                                <div class="metric-value">140 WPM</div>
-                            </div>
-                            <div class="metric-item">
-                                <div class="metric-label">Confidence</div>
-                                <div class="metric-bar">
-                                    <div class="metric-fill" style="width: 90%"></div>
-                                </div>
-                                <div class="metric-value">9.0/10</div>
-                            </div>
-                        </div>
-                        <div class="report-feedback">
-                            <h3>AI Feedback</h3>
-                            <div class="feedback-content">
-                                <div class="feedback-positive">
-                                    <h4>Strengths</h4>
-                                    <ul>
-                                        <li>Excellent pace and rhythm</li>
-                                        <li>Clear pronunciation throughout</li>
-                                        <li>Strong vocal projection</li>
-                                    </ul>
-                                </div>
-                                <div class="feedback-improvements">
-                                    <h4>Areas for Improvement</h4>
-                                    <ul>
-                                        <li>Add more vocal variety and tone changes</li>
-                                        <li>Include strategic pauses for emphasis</li>
-                                        <li>Consider using hand gestures for engagement</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="report-actions">
-                            <button class="btn-primary" onclick="resetRecording()">Record Another Speech</button>
-                            <button class="btn-outline" onclick="window.location.href='home.html'">Back to Home</button>
                         </div>
                     </div>
                 </div>
