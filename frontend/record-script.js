@@ -297,7 +297,7 @@ function initializeTranscriptionFeedback() {
             const popup = document.getElementById('suggestionPopup');
             if (popup && !popup.classList.contains('hidden')) {
                 const wordRect = window.currentWordElement.getBoundingClientRect();
-                const top = wordRect.top - 10;
+                const top = wordRect.top - 200;
                 const left = Math.max(10, wordRect.left);
                 
                 popup.style.top = top + 'px';
@@ -337,8 +337,8 @@ function showSuggestionPopup(wordElement) {
     // Position popup above the clicked word
     const wordRect = wordElement.getBoundingClientRect();
     
-    // Calculate position relative to viewport (above the word)
-    const top = wordRect.top - 10;
+    // Calculate position relative to viewport (above the word with larger gap)
+    const top = wordRect.top - 200;
     const left = Math.max(10, wordRect.left);
     
     popup.style.top = top + 'px';
