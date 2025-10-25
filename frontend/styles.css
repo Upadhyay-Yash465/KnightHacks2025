@@ -89,7 +89,9 @@ body {
 
 .nav-link.active {
     color: #ffffff;
-    background: rgba(55, 65, 81, 0.5);
+    background: #DC2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    transform: translateY(-1px);
 }
 
 .header-actions {
