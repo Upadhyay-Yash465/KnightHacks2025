@@ -9,6 +9,7 @@ let recordedVideoBlob = null;
 
 // Initialize camera on page load
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing...');
     initializeCamera();
     setActiveNavLink();
     initializeTranscriptionFeedback();
@@ -275,10 +276,12 @@ function setActiveNavLink() {
 // Transcription feedback functionality
 function initializeTranscriptionFeedback() {
     const highlightWords = document.querySelectorAll('.highlight-word');
+    console.log('Found highlight words:', highlightWords.length);
     
     highlightWords.forEach(word => {
         word.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Word clicked:', this.textContent);
             showSuggestionPopup(this);
         });
     });
@@ -310,10 +313,13 @@ function initializeTranscriptionFeedback() {
 }
 
 function showSuggestionPopup(wordElement) {
+    console.log('showSuggestionPopup called');
     const popup = document.getElementById('suggestionPopup');
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
+    
+    console.log('Popup elements:', { popup, originalWord, suggestedWord, reasonText });
     
     // Check if all elements exist
     if (!popup || !originalWord || !suggestedWord || !reasonText) {
