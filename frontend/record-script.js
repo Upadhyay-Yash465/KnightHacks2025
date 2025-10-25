@@ -275,12 +275,10 @@ function setActiveNavLink() {
 // Transcription feedback functionality
 function initializeTranscriptionFeedback() {
     const highlightWords = document.querySelectorAll('.highlight-word');
-    const popup = document.getElementById('suggestionPopup');
     
     highlightWords.forEach(word => {
         word.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Highlight word clicked:', this.textContent);
             showSuggestionPopup(this);
         });
     });
@@ -292,27 +290,36 @@ function initializeTranscriptionFeedback() {
         }
     });
     
-    // Update popup position on scroll
-    window.addEventListener('scroll', function() {
-        if (window.currentWordElement && !popup.classList.contains('hidden')) {
-            const wordRect = window.currentWordElement.getBoundingClientRect();
-            const top = wordRect.bottom + window.scrollY + 10;
-            const left = Math.max(10, wordRect.left + window.scrollX);
-            
-            popup.style.top = top + 'px';
-            popup.style.left = left + 'px';
-        }
-    });
+    // Update popup position on scroll (only add once)
+    if (!window.popupScrollListenerAdded) {
+        window.addEventListener('scroll', function() {
+            if (window.currentWordElement) {
+                const popup = document.getElementById('suggestionPopup');
+                if (popup && !popup.classList.contains('hidden')) {
+                    const wordRect = window.currentWordElement.getBoundingClientRect();
+                    const top = wordRect.bottom + window.scrollY + 10;
+                    const left = Math.max(10, wordRect.left + window.scrollX);
+                    
+                    popup.style.top = top + 'px';
+                    popup.style.left = left + 'px';
+                }
+            }
+        });
+        window.popupScrollListenerAdded = true;
+    }
 }
 
 function showSuggestionPopup(wordElement) {
-    console.log('showSuggestionPopup called with:', wordElement);
     const popup = document.getElementById('suggestionPopup');
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
     
-    console.log('Popup element:', popup);
+    // Check if all elements exist
+    if (!popup || !originalWord || !suggestedWord || !reasonText) {
+        console.error('Required popup elements not found');
+        return;
+    }
     
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
