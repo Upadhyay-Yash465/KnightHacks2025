@@ -389,3 +389,105 @@ function updateMetric(elementId, value) {
 //     speed: { value: "Optimal", score: "8.4/10", explanation: "..." }
 // };
 // updateAudioAnalysis(audioData);
+
+// Visual Analysis Functions - Easy plug and play for backend integration
+function updateVisualAnalysis(visualData) {
+    // Update ratings
+    updateElement('emotionRating', visualData.emotions.rating);
+    updateElement('emotionDescription', visualData.emotions.description);
+    updateElement('gestureRating', visualData.gestures.rating);
+    updateElement('gestureDescription', visualData.gestures.description);
+    
+    // Update graph data
+    updateEmotionGraph(visualData.emotionProgression);
+    
+    // Update breakdown content
+    updateBreakdownContent(visualData.breakdown);
+}
+
+function updateElement(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+function updateEmotionGraph(emotionData) {
+    const graphContainer = document.getElementById('emotionGraph');
+    if (!graphContainer || !emotionData) return;
+    
+    // Clear existing graph
+    graphContainer.innerHTML = '';
+    
+    // Create new graph based on data
+    const graphPlaceholder = document.createElement('div');
+    graphPlaceholder.className = 'graph-placeholder';
+    
+    // Add graph line
+    const graphLine = document.createElement('div');
+    graphLine.className = 'graph-line';
+    graphLine.style.top = '50%';
+    graphLine.style.left = '0%';
+    graphLine.style.width = '100%';
+    graphLine.style.background = 'linear-gradient(90deg, #DC2626 0%, #FF8C00 50%, #10B981 100%)';
+    graphPlaceholder.appendChild(graphLine);
+    
+    // Add data points
+    emotionData.forEach((point, index) => {
+        const graphPoint = document.createElement('div');
+        graphPoint.className = 'graph-point';
+        graphPoint.style.top = `${point.yPosition}%`;
+        graphPoint.style.left = `${point.xPosition}%`;
+        graphPoint.setAttribute('data-time', point.time);
+        graphPoint.setAttribute('data-emotion', point.emotion);
+        graphPlaceholder.appendChild(graphPoint);
+    });
+    
+    graphContainer.appendChild(graphPlaceholder);
+}
+
+function updateBreakdownContent(breakdownData) {
+    const breakdownContent = document.getElementById('breakdownContent');
+    if (!breakdownContent || !breakdownData) return;
+    
+    // Clear existing content
+    breakdownContent.innerHTML = '';
+    
+    // Add breakdown items
+    breakdownData.forEach(item => {
+        const breakdownItem = document.createElement('div');
+        breakdownItem.className = 'breakdown-item';
+        
+        const category = document.createElement('div');
+        category.className = 'breakdown-category';
+        category.textContent = item.category;
+        
+        const text = document.createElement('div');
+        text.className = 'breakdown-text';
+        text.textContent = item.text;
+        
+        breakdownItem.appendChild(category);
+        breakdownItem.appendChild(text);
+        breakdownContent.appendChild(breakdownItem);
+    });
+}
+
+// Example usage for backend integration:
+// const visualData = {
+//     emotions: { rating: "9.1/10", description: "Highly expressive" },
+//     gestures: { rating: "8.7/10", description: "Very effective" },
+//     emotionProgression: [
+//         { xPosition: 10, yPosition: 20, time: "0:05", emotion: "Confident" },
+//         { xPosition: 30, yPosition: 30, time: "0:15", emotion: "Enthusiastic" },
+//         { xPosition: 50, yPosition: 40, time: "0:25", emotion: "Calm" },
+//         { xPosition: 70, yPosition: 25, time: "0:35", emotion: "Confident" },
+//         { xPosition: 90, yPosition: 35, time: "0:45", emotion: "Engaged" }
+//     ],
+//     breakdown: [
+//         { category: "Emotional Range", text: "Your speech demonstrated..." },
+//         { category: "Gesture Effectiveness", text: "Your hand gestures were..." },
+//         { category: "Facial Expressions", text: "Your facial expressions..." },
+//         { category: "Overall Impact", text: "The combination of..." }
+//     ]
+// };
+// updateVisualAnalysis(visualData);

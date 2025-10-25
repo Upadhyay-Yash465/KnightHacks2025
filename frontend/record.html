@@ -197,7 +197,7 @@
                         <!-- Box 2: Audio Analysis -->
                         <div class="feedback-box audio-analysis-box">
                             <div class="feedback-box-header">
-                                <h3 class="feedback-box-title">🎵 Audio Analysis</h3>
+                                <h3 class="feedback-box-title">Audio Analysis</h3>
                                 <p class="feedback-box-subtitle">Voice characteristics and delivery metrics</p>
                             </div>
                             <div class="audio-analysis-content">
@@ -239,6 +239,87 @@
                                     <div class="explanation-item">
                                         <h4 class="explanation-title">Speed</h4>
                                         <p class="explanation-text" id="speedExplanation">Your speaking pace is well-balanced, allowing listeners to follow your ideas while maintaining their attention and interest.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Box 3: Visual Analysis -->
+                        <div class="feedback-box visual-analysis-box">
+                            <div class="feedback-box-header">
+                                <h3 class="feedback-box-title">👁️ Visual Analysis</h3>
+                                <p class="feedback-box-subtitle">Emotional expression and gesture effectiveness</p>
+                            </div>
+                            <div class="visual-analysis-content">
+                                <!-- Top Section: Ratings and Graph -->
+                                <div class="visual-top-section">
+                                    <!-- Left: Emotion & Gesture Ratings -->
+                                    <div class="ratings-section">
+                                        <div class="rating-item">
+                                            <div class="rating-label">Emotions</div>
+                                            <div class="rating-value" id="emotionRating">8.4/10</div>
+                                            <div class="rating-description" id="emotionDescription">Expressive and engaging</div>
+                                        </div>
+                                        <div class="rating-item">
+                                            <div class="rating-label">Gestures</div>
+                                            <div class="rating-value" id="gestureRating">7.9/10</div>
+                                            <div class="rating-description" id="gestureDescription">Natural and purposeful</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Right: Time-Emotion Graph -->
+                                    <div class="graph-section">
+                                        <div class="graph-header">
+                                            <h4 class="graph-title">Emotional Progression</h4>
+                                            <div class="graph-legend">
+                                                <div class="legend-item">
+                                                    <div class="legend-color" style="background: #DC2626;"></div>
+                                                    <span>Confidence</span>
+                                                </div>
+                                                <div class="legend-item">
+                                                    <div class="legend-color" style="background: #FF8C00;"></div>
+                                                    <span>Enthusiasm</span>
+                                                </div>
+                                                <div class="legend-item">
+                                                    <div class="legend-color" style="background: #10B981;"></div>
+                                                    <span>Calmness</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="graph-container" id="emotionGraph">
+                                            <!-- Graph will be populated by JavaScript -->
+                                            <div class="graph-placeholder">
+                                                <div class="graph-line" style="top: 20%; left: 0%; width: 100%; background: linear-gradient(90deg, #DC2626 0%, #FF8C00 50%, #10B981 100%);"></div>
+                                                <div class="graph-point" style="top: 15%; left: 10%;" data-time="0:05" data-emotion="Confident"></div>
+                                                <div class="graph-point" style="top: 25%; left: 30%;" data-time="0:15" data-emotion="Enthusiastic"></div>
+                                                <div class="graph-point" style="top: 35%; left: 50%;" data-time="0:25" data-emotion="Calm"></div>
+                                                <div class="graph-point" style="top: 20%; left: 70%;" data-time="0:35" data-emotion="Confident"></div>
+                                                <div class="graph-point" style="top: 30%; left: 90%;" data-time="0:45" data-emotion="Engaged"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bottom Section: Comprehensive Breakdown -->
+                                <div class="breakdown-section">
+                                    <h4 class="breakdown-title">Analysis Breakdown</h4>
+                                    <div class="breakdown-content" id="breakdownContent">
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-category">Emotional Range</div>
+                                            <div class="breakdown-text" id="emotionalRangeText">Your speech demonstrated excellent emotional variety, transitioning smoothly between confidence, enthusiasm, and calmness. This kept the audience engaged throughout your presentation.</div>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-category">Gesture Effectiveness</div>
+                                            <div class="breakdown-text" id="gestureEffectivenessText">Your hand gestures were well-timed and purposeful, emphasizing key points without being distracting. The natural flow of your movements enhanced your message delivery.</div>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-category">Facial Expressions</div>
+                                            <div class="breakdown-text" id="facialExpressionsText">Your facial expressions were authentic and matched your emotional tone. The genuine smile and engaged eye contact created a strong connection with your audience.</div>
+                                        </div>
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-category">Overall Impact</div>
+                                            <div class="breakdown-text" id="overallImpactText">The combination of your emotional expression and physical gestures created a compelling and memorable presentation that effectively communicated your message.</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
