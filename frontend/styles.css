@@ -1291,6 +1291,12 @@ body {
             display: block;
         }
 
+        #prosodyValue {
+            text-align: center !important;
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
         .audio-explanations {
             display: flex;
             flex-direction: column;
