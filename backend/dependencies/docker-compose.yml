@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build: .
+    build: 
+      context: ..
+      dockerfile: dependencies/Dockerfile
     ports:
       - "8000:8000"
     environment:
@@ -12,7 +14,7 @@ services:
       - WHISPER_DEVICE=${WHISPER_DEVICE:-cpu}
       - WHISPER_COMPUTE_TYPE=${WHISPER_COMPUTE_TYPE:-int8}
     volumes:
-      - ./firebase-key.json:/app/firebase-key.json:ro
-      - ./uploads:/app/uploads
+      - ../config/firebase-key.json:/app/firebase-key.json:ro
+      - ../src/uploads:/app/uploads
     restart: unless-stopped
 

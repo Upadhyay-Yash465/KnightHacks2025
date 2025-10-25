@@ -10,13 +10,17 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
-COPY requirements.txt .
+COPY dependencies/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY src/ .
+COPY agent/ ./agent/
+COPY services/ ./services/
+COPY utils/ ./utils/
+COPY config/ ./config/
 
 # Create uploads directory
 RUN mkdir -p uploads
