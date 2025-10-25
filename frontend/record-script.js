@@ -416,34 +416,60 @@ function updateEmotionGraph(emotionData) {
     const graphContainer = document.getElementById('emotionGraph');
     if (!graphContainer || !emotionData) return;
     
-    // Clear existing graph
-    graphContainer.innerHTML = '';
+    // Clear existing graph content but keep the structure
+    const emotionLine = document.getElementById('emotionLine');
+    const dataPoints = document.getElementById('dataPoints');
     
-    // Create new graph based on data
-    const graphPlaceholder = document.createElement('div');
-    graphPlaceholder.className = 'graph-placeholder';
+    if (emotionLine) emotionLine.innerHTML = '';
+    if (dataPoints) dataPoints.innerHTML = '';
     
-    // Add graph line
-    const graphLine = document.createElement('div');
-    graphLine.className = 'graph-line';
-    graphLine.style.top = '50%';
-    graphLine.style.left = '0%';
-    graphLine.style.width = '100%';
-    graphLine.style.background = 'linear-gradient(90deg, #DC2626 0%, #FF8C00 50%, #10B981 100%)';
-    graphPlaceholder.appendChild(graphLine);
+    // Create SVG line connecting the points
+    if (emotionLine && emotionData.length > 1) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.style.position = 'absolute';
+        svg.style.top = '0';
+        svg.style.left = '0';
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+        svg.style.pointerEvents = 'none';
+        
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        let pathData = '';
+        
+        emotionData.forEach((point, index) => {
+            const x = point.xPosition;
+            const y = point.yPosition;
+            
+            if (index === 0) {
+                pathData += `M ${x} ${y}`;
+            } else {
+                pathData += ` L ${x} ${y}`;
+            }
+        });
+        
+        path.setAttribute('d', pathData);
+        path.setAttribute('stroke', '#DC2626');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('opacity', '0.8');
+        
+        svg.appendChild(path);
+        emotionLine.appendChild(svg);
+    }
     
     // Add data points
-    emotionData.forEach((point, index) => {
-        const graphPoint = document.createElement('div');
-        graphPoint.className = 'graph-point';
-        graphPoint.style.top = `${point.yPosition}%`;
-        graphPoint.style.left = `${point.xPosition}%`;
-        graphPoint.setAttribute('data-time', point.time);
-        graphPoint.setAttribute('data-emotion', point.emotion);
-        graphPlaceholder.appendChild(graphPoint);
-    });
-    
-    graphContainer.appendChild(graphPlaceholder);
+    if (dataPoints) {
+        emotionData.forEach((point, index) => {
+            const dataPoint = document.createElement('div');
+            dataPoint.className = 'data-point';
+            dataPoint.style.top = `${point.yPosition}%`;
+            dataPoint.style.left = `${point.xPosition}%`;
+            dataPoint.setAttribute('data-time', point.time);
+            dataPoint.setAttribute('data-emotion', point.emotion);
+            dataPoint.setAttribute('data-intensity', point.intensity || '5');
+            dataPoints.appendChild(dataPoint);
+        });
+    }
 }
 
 function updateBreakdownContent(breakdownData) {

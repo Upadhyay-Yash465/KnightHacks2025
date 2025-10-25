@@ -247,7 +247,7 @@
                         <!-- Box 3: Visual Analysis -->
                         <div class="feedback-box visual-analysis-box">
                             <div class="feedback-box-header">
-                                <h3 class="feedback-box-title">👁️ Visual Analysis</h3>
+                                <h3 class="feedback-box-title">Visual Analysis</h3>
                                 <p class="feedback-box-subtitle">Emotional expression and gesture effectiveness</p>
                             </div>
                             <div class="visual-analysis-content">
@@ -287,14 +287,54 @@
                                             </div>
                                         </div>
                                         <div class="graph-container" id="emotionGraph">
-                                            <!-- Graph will be populated by JavaScript -->
-                                            <div class="graph-placeholder">
-                                                <div class="graph-line" style="top: 20%; left: 0%; width: 100%; background: linear-gradient(90deg, #DC2626 0%, #FF8C00 50%, #10B981 100%);"></div>
-                                                <div class="graph-point" style="top: 15%; left: 10%;" data-time="0:05" data-emotion="Confident"></div>
-                                                <div class="graph-point" style="top: 25%; left: 30%;" data-time="0:15" data-emotion="Enthusiastic"></div>
-                                                <div class="graph-point" style="top: 35%; left: 50%;" data-time="0:25" data-emotion="Calm"></div>
-                                                <div class="graph-point" style="top: 20%; left: 70%;" data-time="0:35" data-emotion="Confident"></div>
-                                                <div class="graph-point" style="top: 30%; left: 90%;" data-time="0:45" data-emotion="Engaged"></div>
+                                            <!-- Graph Axes -->
+                                            <div class="graph-axes">
+                                                <!-- Y-axis labels -->
+                                                <div class="y-axis-labels">
+                                                    <div class="y-label" style="top: 0%;">High</div>
+                                                    <div class="y-label" style="top: 25%;">Medium</div>
+                                                    <div class="y-label" style="top: 50%;">Neutral</div>
+                                                    <div class="y-label" style="top: 75%;">Low</div>
+                                                    <div class="y-label" style="top: 100%;">Very Low</div>
+                                                </div>
+                                                
+                                                <!-- X-axis labels -->
+                                                <div class="x-axis-labels">
+                                                    <div class="x-label" style="left: 0%;">0:00</div>
+                                                    <div class="x-label" style="left: 20%;">0:15</div>
+                                                    <div class="x-label" style="left: 40%;">0:30</div>
+                                                    <div class="x-label" style="left: 60%;">0:45</div>
+                                                    <div class="x-label" style="left: 80%;">1:00</div>
+                                                    <div class="x-label" style="left: 100%;">1:15</div>
+                                                </div>
+                                                
+                                                <!-- Grid lines -->
+                                                <div class="grid-lines">
+                                                    <div class="grid-line horizontal" style="top: 0%;"></div>
+                                                    <div class="grid-line horizontal" style="top: 25%;"></div>
+                                                    <div class="grid-line horizontal" style="top: 50%;"></div>
+                                                    <div class="grid-line horizontal" style="top: 75%;"></div>
+                                                    <div class="grid-line horizontal" style="top: 100%;"></div>
+                                                    <div class="grid-line vertical" style="left: 0%;"></div>
+                                                    <div class="grid-line vertical" style="left: 20%;"></div>
+                                                    <div class="grid-line vertical" style="left: 40%;"></div>
+                                                    <div class="grid-line vertical" style="left: 60%;"></div>
+                                                    <div class="grid-line vertical" style="left: 80%;"></div>
+                                                    <div class="grid-line vertical" style="left: 100%;"></div>
+                                                </div>
+                                                
+                                                <!-- Emotion line graph -->
+                                                <div class="emotion-line" id="emotionLine"></div>
+                                                
+                                                <!-- Data points -->
+                                                <div class="data-points" id="dataPoints">
+                                                    <div class="data-point" style="top: 20%; left: 0%;" data-time="0:00" data-emotion="Confident" data-intensity="8"></div>
+                                                    <div class="data-point" style="top: 35%; left: 20%;" data-time="0:15" data-emotion="Enthusiastic" data-intensity="6"></div>
+                                                    <div class="data-point" style="top: 60%; left: 40%;" data-time="0:30" data-emotion="Calm" data-intensity="4"></div>
+                                                    <div class="data-point" style="top: 25%; left: 60%;" data-time="0:45" data-emotion="Confident" data-intensity="7"></div>
+                                                    <div class="data-point" style="top: 15%; left: 80%;" data-time="1:00" data-emotion="Excited" data-intensity="9"></div>
+                                                    <div class="data-point" style="top: 45%; left: 100%;" data-time="1:15" data-emotion="Satisfied" data-intensity="5"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
