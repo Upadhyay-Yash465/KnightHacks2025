@@ -279,6 +279,7 @@ function initializeTranscriptionFeedback() {
     highlightWords.forEach(word => {
         word.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Word clicked, calling showSuggestionPopup');
             showSuggestionPopup(this);
         });
     });
@@ -310,16 +311,21 @@ function initializeTranscriptionFeedback() {
 }
 
 function showSuggestionPopup(wordElement) {
+    console.log('showSuggestionPopup called');
     const popup = document.getElementById('suggestionPopup');
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
+    
+    console.log('Elements found:', { popup: !!popup, originalWord: !!originalWord, suggestedWord: !!suggestedWord, reasonText: !!reasonText });
     
     // Check if all elements exist
     if (!popup || !originalWord || !suggestedWord || !reasonText) {
         console.error('Required popup elements not found');
         return;
     }
+    
+    console.log('All elements found, proceeding...');
     
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
@@ -334,15 +340,15 @@ function showSuggestionPopup(wordElement) {
     suggestedWord.textContent = suggestion;
     reasonText.textContent = reason;
     
-    // Position popup below the clicked word
-    const wordRect = wordElement.getBoundingClientRect();
-    
-    // Calculate position relative to viewport, accounting for scroll
-    const top = wordRect.bottom + window.scrollY + 10;
-    const left = Math.max(10, wordRect.left + window.scrollX);
-    
-    popup.style.top = top + 'px';
-    popup.style.left = left + 'px';
+    // Simple test - position popup in center of screen
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.zIndex = '9999';
+    popup.style.backgroundColor = 'red';
+    popup.style.padding = '20px';
+    popup.style.border = '2px solid white';
     
     // Show popup
     popup.classList.remove('hidden');
