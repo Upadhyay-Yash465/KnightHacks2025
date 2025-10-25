@@ -9,8 +9,6 @@ let recordedVideoBlob = null;
 
 // Initialize camera on page load
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing...');
-    console.log('=== NEW JAVASCRIPT VERSION LOADED ===');
     initializeCamera();
     setActiveNavLink();
     initializeTranscriptionFeedback();
@@ -277,14 +275,10 @@ function setActiveNavLink() {
 // Transcription feedback functionality
 function initializeTranscriptionFeedback() {
     const highlightWords = document.querySelectorAll('.highlight-word');
-    console.log('Found highlight words:', highlightWords.length);
     
     highlightWords.forEach(word => {
         word.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Word clicked:', this.textContent);
-            
-            
             showSuggestionPopup(this);
         });
     });
@@ -316,27 +310,16 @@ function initializeTranscriptionFeedback() {
 }
 
 function showSuggestionPopup(wordElement) {
-    console.log('=== POPUP FUNCTION CALLED - VERSION 3 ===');
-    console.log('showSuggestionPopup called - NEW VERSION');
     const popup = document.getElementById('suggestionPopup');
-    console.log('Main popup element:', popup);
-    console.log('Popup innerHTML:', popup ? popup.innerHTML : 'No popup found');
-    
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
-    
-    console.log('Popup elements:', { popup, originalWord, suggestedWord, reasonText });
     
     // Check if all elements exist
     if (!popup || !originalWord || !suggestedWord || !reasonText) {
         console.error('Required popup elements not found');
         return;
     }
-    
-    console.log('All elements found, proceeding with popup show');
-    console.log('Popup before show:', popup);
-    console.log('About to populate content...');
     
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
@@ -351,8 +334,6 @@ function showSuggestionPopup(wordElement) {
     suggestedWord.textContent = suggestion;
     reasonText.textContent = reason;
     
-    console.log('Content populated:', { original, suggestion, reason });
-    
     // Position popup below the clicked word
     const wordRect = wordElement.getBoundingClientRect();
     
@@ -360,26 +341,11 @@ function showSuggestionPopup(wordElement) {
     const top = wordRect.bottom + window.scrollY + 10;
     const left = Math.max(10, wordRect.left + window.scrollX);
     
-    console.log('Positioning popup at:', { top, left, wordRect });
-    
     popup.style.top = top + 'px';
     popup.style.left = left + 'px';
     
     // Show popup
     popup.classList.remove('hidden');
-    
-    // Force visibility for testing
-    popup.style.display = 'block';
-    popup.style.visibility = 'visible';
-    popup.style.opacity = '1';
-    
-    console.log('Popup classes after show:', popup.className);
-    console.log('Popup computed style:', {
-        top: popup.style.top,
-        left: popup.style.left,
-        display: getComputedStyle(popup).display,
-        visibility: getComputedStyle(popup).visibility
-    });
 }
 
 function closeSuggestionPopup() {
