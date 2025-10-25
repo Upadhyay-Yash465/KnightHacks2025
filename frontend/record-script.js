@@ -291,6 +291,18 @@ function initializeTranscriptionFeedback() {
             closeSuggestionPopup();
         }
     });
+    
+    // Update popup position on scroll
+    window.addEventListener('scroll', function() {
+        if (window.currentWordElement && !popup.classList.contains('hidden')) {
+            const wordRect = window.currentWordElement.getBoundingClientRect();
+            const top = wordRect.bottom + window.scrollY + 10;
+            const left = Math.max(10, wordRect.left + window.scrollX);
+            
+            popup.style.top = top + 'px';
+            popup.style.left = left + 'px';
+        }
+    });
 }
 
 function showSuggestionPopup(wordElement) {
@@ -301,6 +313,9 @@ function showSuggestionPopup(wordElement) {
     const reasonText = document.getElementById('reasonText');
     
     console.log('Popup element:', popup);
+    
+    // Store reference to current word element for scroll updates
+    window.currentWordElement = wordElement;
     
     // Get data from the clicked word
     const suggestion = wordElement.getAttribute('data-suggestion');
@@ -315,9 +330,9 @@ function showSuggestionPopup(wordElement) {
     // Position popup below the clicked word
     const wordRect = wordElement.getBoundingClientRect();
     
-    // Calculate position relative to viewport
-    const top = wordRect.bottom + 10;
-    const left = Math.max(10, wordRect.left);
+    // Calculate position relative to viewport, accounting for scroll
+    const top = wordRect.bottom + window.scrollY + 10;
+    const left = Math.max(10, wordRect.left + window.scrollX);
     
     popup.style.top = top + 'px';
     popup.style.left = left + 'px';
@@ -329,4 +344,5 @@ function showSuggestionPopup(wordElement) {
 function closeSuggestionPopup() {
     const popup = document.getElementById('suggestionPopup');
     popup.classList.add('hidden');
+    window.currentWordElement = null;
 }
