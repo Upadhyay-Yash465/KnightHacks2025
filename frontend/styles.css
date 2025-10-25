@@ -414,6 +414,38 @@ body {
     line-height: 1.6;
 }
 
+/* Copyright Footer */
+.copyright-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.copyright-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.copyright-content p {
+    font-family: 'Space Grotesk', sans-serif;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.copyright-content p:first-child {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.copyright-content p:last-child {
+    font-style: italic;
+    opacity: 0.8;
+}
+
 /* Record Section */
 .record-section {
     min-height: 100vh;
