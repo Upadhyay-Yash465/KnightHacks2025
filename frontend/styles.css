@@ -279,12 +279,6 @@ body {
     position: relative;
 }
 
-.separator-line {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(220, 38, 38, 0.3) 50%, transparent 100%);
-    border-radius: 1px;
-}
 
 .separator-dots {
     display: flex;
@@ -501,7 +495,7 @@ body {
 /* Record Section */
 .record-section {
     min-height: 100vh;
-    padding: 1.875rem 2rem 0.5rem;
+    padding: 6rem 2rem 0.5rem;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
