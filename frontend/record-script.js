@@ -280,6 +280,7 @@ function initializeTranscriptionFeedback() {
     highlightWords.forEach(word => {
         word.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Highlight word clicked:', this.textContent);
             showSuggestionPopup(this);
         });
     });
@@ -293,10 +294,13 @@ function initializeTranscriptionFeedback() {
 }
 
 function showSuggestionPopup(wordElement) {
+    console.log('showSuggestionPopup called with:', wordElement);
     const popup = document.getElementById('suggestionPopup');
     const originalWord = document.getElementById('originalWord');
     const suggestedWord = document.getElementById('suggestedWord');
     const reasonText = document.getElementById('reasonText');
+    
+    console.log('Popup element:', popup);
     
     // Get data from the clicked word
     const suggestion = wordElement.getAttribute('data-suggestion');
@@ -310,11 +314,10 @@ function showSuggestionPopup(wordElement) {
     
     // Position popup below the clicked word
     const wordRect = wordElement.getBoundingClientRect();
-    const popupRect = popup.getBoundingClientRect();
     
-    // Calculate position
+    // Calculate position relative to viewport
     const top = wordRect.bottom + 10;
-    const left = Math.max(10, Math.min(wordRect.left, window.innerWidth - popupRect.width - 10));
+    const left = Math.max(10, wordRect.left);
     
     popup.style.top = top + 'px';
     popup.style.left = left + 'px';

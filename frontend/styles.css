@@ -1118,7 +1118,7 @@ body {
 
 /* Suggestion Popup */
 .suggestion-popup {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     background: rgba(26, 26, 26, 0.95);
     backdrop-filter: blur(20px);
