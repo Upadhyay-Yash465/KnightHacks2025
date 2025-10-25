@@ -269,11 +269,53 @@ body {
     box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
 }
 
+/* Visual Separator */
+.section-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    position: relative;
+}
+
+.separator-line {
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #DC2626 50%, transparent 100%);
+    border-radius: 1px;
+}
+
+.separator-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 1rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #DC2626;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
 /* Footer */
 .footer {
-    background: #000000;
-    padding: 1rem 0 0.5rem;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    padding: 2rem 0 0.5rem;
     margin-top: 0;
+    position: relative;
+    border-top: 1px solid rgba(220, 38, 38, 0.2);
 }
 
 .footer-content {
@@ -1235,10 +1277,12 @@ body {
 
 /* Simple Footer for Record Page */
 .record-page-footer {
-    background: #000000;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
     padding: 2rem 0;
     margin-top: 0;
     width: 100%;
+    border-top: 1px solid rgba(220, 38, 38, 0.2);
+    position: relative;
 }
 
 .record-footer-content {
