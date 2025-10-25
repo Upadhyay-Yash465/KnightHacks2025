@@ -315,6 +315,7 @@ function initializeTranscriptionFeedback() {
 }
 
 function showSuggestionPopup(wordElement) {
+    console.log('=== POPUP FUNCTION CALLED - VERSION 3 ===');
     console.log('showSuggestionPopup called - NEW VERSION');
     const popup = document.getElementById('suggestionPopup');
     console.log('Main popup element:', popup);
