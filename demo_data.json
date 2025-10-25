@@ -1,0 +1,91 @@
+{
+  "sample_results": {
+    "transcription": {
+      "text": "So, um, I think that, like, the main point is that, you know, we should probably, uh, consider the options. Well, basically, I mean, it's like, you know, sort of complicated, right? So anyway, um, what do you think?",
+      "language": "en",
+      "duration": 15.5,
+      "confidence": 0.89
+    },
+    "analysis": {
+      "filler_count": 8,
+      "clarity_score": 6.5,
+      "suggestions": [
+        "Practice pausing instead of using filler words like 'um' and 'uh'",
+        "Slow down your speech pace for better clarity",
+        "Record yourself speaking to identify filler word patterns"
+      ],
+      "summary": "Moderate clarity with several filler words that can be reduced.",
+      "filler_density": 12.5,
+      "total_words": 64
+    },
+    "metadata": {
+      "filename": "sample_speech.wav",
+      "file_size": 248576,
+      "transcription_time": 2.3,
+      "model_used": "systran/faster-whisper-base"
+    }
+  },
+  "sessions": [
+    {
+      "timestamp": "2025-09-24T19:37:46.555609",
+      "clarityScore": 5.1,
+      "fillerCount": 15,
+      "wordCount": 50
+    },
+    {
+      "timestamp": "2025-09-27T19:37:46.555609",
+      "clarityScore": 5.3,
+      "fillerCount": 14,
+      "wordCount": 55
+    },
+    {
+      "timestamp": "2025-09-30T19:37:46.555609",
+      "clarityScore": 5.9,
+      "fillerCount": 13,
+      "wordCount": 60
+    },
+    {
+      "timestamp": "2025-10-03T19:37:46.555609",
+      "clarityScore": 6.1,
+      "fillerCount": 12,
+      "wordCount": 65
+    },
+    {
+      "timestamp": "2025-10-06T19:37:46.555609",
+      "clarityScore": 6.7,
+      "fillerCount": 11,
+      "wordCount": 70
+    },
+    {
+      "timestamp": "2025-10-09T19:37:46.555609",
+      "clarityScore": 6.9,
+      "fillerCount": 10,
+      "wordCount": 75
+    },
+    {
+      "timestamp": "2025-10-12T19:37:46.555609",
+      "clarityScore": 7.5,
+      "fillerCount": 9,
+      "wordCount": 80
+    },
+    {
+      "timestamp": "2025-10-15T19:37:46.555609",
+      "clarityScore": 7.7,
+      "fillerCount": 8,
+      "wordCount": 85
+    },
+    {
+      "timestamp": "2025-10-18T19:37:46.555609",
+      "clarityScore": 8.3,
+      "fillerCount": 7,
+      "wordCount": 90
+    },
+    {
+      "timestamp": "2025-10-21T19:37:46.555609",
+      "clarityScore": 8.5,
+      "fillerCount": 6,
+      "wordCount": 95
+    }
+  ],
+  "created_at": "2025-10-24T19:37:46.555646"
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeechCoach AI - Your Personal Speaking Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-microphone-alt"></i>
+                <span>SpeechCoach AI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#analysis" class="nav-link">Analysis</a>
+                <a href="#progress" class="nav-link">Progress</a>
+                <a href="#tips" class="nav-link">Tips</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Master Your <span class="gradient-text">Speaking Skills</span>
+                    <br>with AI-Powered Analysis
+                </h1>
+                <p class="hero-description">
+                    Upload your speech recordings or record live to get instant feedback on clarity, 
+                    filler words, and speaking patterns. Improve your communication skills with 
+                    personalized suggestions.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="startAnalysisBtn">
+                        <i class="fas fa-play"></i>
+                        Start Analysis
+                    </button>
+                    <button class="btn btn-secondary" id="learnMoreBtn">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="speech-bubble">
+                    <div class="waveform">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                    <div class="speech-text">"Your speech is clear and engaging!"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis Section -->
+    <section id="analysis" class="analysis-section">
+        <div class="container">
+            <h2 class="section-title">Speech Analysis</h2>
+            
+            <!-- Upload Area -->
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Upload Audio File</h3>
+                    <p>Drag and drop your audio file here, or click to browse</p>
+                    <input type="file" id="audioFileInput" accept="audio/*" hidden>
+                    <button class="btn btn-outline" id="browseBtn">Browse Files</button>
+                </div>
+            </div>
+
+            <!-- Recording Area -->
+            <div class="recording-section">
+                <div class="recording-controls">
+                    <button class="record-btn" id="recordBtn">
+                        <i class="fas fa-microphone"></i>
+                        <span>Record Live</span>
+                    </button>
+                    <div class="recording-status" id="recordingStatus" style="display: none;">
+                        <div class="recording-indicator">
+                            <div class="pulse"></div>
+                            <span>Recording...</span>
+                        </div>
+                        <button class="btn btn-danger" id="stopRecordBtn">Stop</button>
+                    </div>
+                </div>
+                <div class="audio-visualizer" id="audioVisualizer" style="display: none;">
+                    <canvas id="visualizerCanvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Text Input Option -->
+            <div class="text-input-section">
+                <h3>Or analyze text directly</h3>
+                <textarea 
+                    id="textInput" 
+                    placeholder="Paste your speech transcript here for analysis..."
+                    rows="4"
+                ></textarea>
+                <button class="btn btn-primary" id="analyzeTextBtn">Analyze Text</button>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState" style="display: none;">
+                <div class="loading-spinner"></div>
+                <h3>Analyzing your speech...</h3>
+                <p>This may take a few moments</p>
+            </div>
+
+            <!-- Results Display -->
+            <div class="results-container" id="resultsContainer" style="display: none;">
+                <!-- Transcription Results -->
+                <div class="result-card transcription-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-text"></i> Transcription</h3>
+                        <div class="confidence-badge" id="confidenceBadge"></div>
+                    </div>
+                    <div class="transcription-content">
+                        <p id="transcriptionText"></p>
+                        <div class="transcription-meta">
+                            <span id="transcriptionLanguage"></span>
+                            <span id="transcriptionDuration"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div class="result-card analysis-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Analysis Results</h3>
+                    </div>
+                    <div class="analysis-grid">
+                        <!-- Clarity Score -->
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Clarity Score</h4>
+                                <div class="score-display">
+                                    <span class="score-number" id="clarityScore">0</span>
+                                    <span class="score-max">/10</span>
+                                </div>
+                                <div class="score-bar">
+                                    <div class="score-fill" id="clarityScoreFill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Filler Words -->
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Filler Words</h4>
+                                <div class="filler-stats">
+                                    <span class="filler-count" id="fillerCount">0</span>
+                                    <span class="filler-density" id="fillerDensity">0%</span>
+                                </div>
+                                <div class="filler-chart">
+                                    <canvas id="fillerChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Word Count -->
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Word Count</h4>
+                                <div class="word-count" id="wordCount">0</div>
+                                <div class="word-rate">
+                                    <span id="wordRate">0</span> words/min
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions -->
+                <div class="result-card suggestions-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-lightbulb"></i> Improvement Suggestions</h3>
+                    </div>
+                    <div class="suggestions-list" id="suggestionsList">
+                        <!-- Suggestions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="result-card summary-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clipboard-list"></i> Summary</h3>
+                    </div>
+                    <div class="summary-content">
+                        <p id="summaryText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="progress-section">
+        <div class="container">
+            <h2 class="section-title">Your Progress</h2>
+            <div class="progress-grid">
+                <div class="progress-card">
+                    <h3>Recent Sessions</h3>
+                    <div class="sessions-list" id="sessionsList">
+                        <div class="session-item">
+                            <div class="session-date">Today</div>
+                            <div class="session-score">8.5/10</div>
+                            <div class="session-fillers">3 fillers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <h3>Improvement Trends</h3>
+                    <div class="trend-chart">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips" class="tips-section">
+        <div class="container">
+            <h2 class="section-title">Speaking Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-pause"></i>
+                    </div>
+                    <h3>Use Strategic Pauses</h3>
+                    <p>Replace filler words with brief pauses. This gives you time to think and makes your speech more impactful.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <h3>Control Your Pace</h3>
+                    <p>Speak at a moderate pace - not too fast, not too slow. Aim for 150-160 words per minute.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Maintain Eye Contact</h3>
+                    <p>Practice speaking while maintaining eye contact with your audience to build connection and confidence.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Practice Regularly</h3>
+                    <p>Consistent practice is key to improvement. Record yourself regularly to track your progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-microphone-alt"></i>
+                    <span>SpeechCoach AI</span>
+                </div>
+                <p>&copy; 2024 SpeechCoach AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
