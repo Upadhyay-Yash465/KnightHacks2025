@@ -282,6 +282,22 @@ function initializeTranscriptionFeedback() {
         word.addEventListener('click', function(e) {
             e.preventDefault();
             console.log('Word clicked:', this.textContent);
+            
+            // Simple test - try to show popup directly
+            const testPopup = document.getElementById('suggestionPopup');
+            if (testPopup) {
+                testPopup.classList.remove('hidden');
+                testPopup.style.display = 'block';
+                testPopup.style.position = 'fixed';
+                testPopup.style.top = '100px';
+                testPopup.style.left = '100px';
+                testPopup.style.zIndex = '9999';
+                testPopup.style.backgroundColor = 'red';
+                testPopup.style.padding = '20px';
+                testPopup.innerHTML = '<p style="color: white;">TEST POPUP</p>';
+                console.log('Test popup should be visible now');
+            }
+            
             showSuggestionPopup(this);
         });
     });
@@ -328,6 +344,7 @@ function showSuggestionPopup(wordElement) {
     }
     
     console.log('All elements found, proceeding with popup show');
+    console.log('Popup before show:', popup);
     
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
