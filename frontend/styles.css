@@ -1413,6 +1413,37 @@ body {
 
         .graph-header {
             margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .legend-controls {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .toggle-all-btn {
+            background: rgba(220, 38, 38, 0.2);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            color: #DC2626;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-all-btn:hover {
+            background: rgba(220, 38, 38, 0.3);
+            border-color: rgba(220, 38, 38, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .toggle-all-btn:active {
+            transform: translateY(0);
         }
 
         .graph-title {

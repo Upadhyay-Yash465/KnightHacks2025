@@ -521,7 +521,9 @@ function getActiveEmotions() {
 
 function initializeEmotionGraphInteractivity() {
     const legendItems = document.querySelectorAll('.legend-item');
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
     
+    // Individual emotion toggle
     legendItems.forEach(item => {
         item.addEventListener('click', function() {
             const emotion = this.getAttribute('data-emotion');
@@ -535,10 +537,51 @@ function initializeEmotionGraphInteractivity() {
                 this.classList.add('active');
             }
             
+            // Update toggle all button text
+            updateToggleAllButton();
+            
             // Re-render graph with updated active emotions
             renderEmotionGraph();
         });
     });
+    
+    // Toggle all button
+    if (toggleAllBtn) {
+        toggleAllBtn.addEventListener('click', function() {
+            const allActive = areAllEmotionsActive();
+            
+            legendItems.forEach(item => {
+                if (allActive) {
+                    // Turn all off
+                    item.classList.remove('active');
+                    item.classList.add('inactive');
+                } else {
+                    // Turn all on
+                    item.classList.remove('inactive');
+                    item.classList.add('active');
+                }
+            });
+            
+            // Update button text
+            updateToggleAllButton();
+            
+            // Re-render graph
+            renderEmotionGraph();
+        });
+    }
+}
+
+function areAllEmotionsActive() {
+    const legendItems = document.querySelectorAll('.legend-item');
+    return Array.from(legendItems).every(item => item.classList.contains('active'));
+}
+
+function updateToggleAllButton() {
+    const toggleAllBtn = document.getElementById('toggleAllBtn');
+    if (toggleAllBtn) {
+        const allActive = areAllEmotionsActive();
+        toggleAllBtn.textContent = allActive ? 'Hide All' : 'Show All';
+    }
 }
 
 function updateBreakdownContent(breakdownData) {
