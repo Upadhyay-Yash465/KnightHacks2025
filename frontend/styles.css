@@ -414,9 +414,19 @@ body {
     line-height: 1.6;
 }
 
+/* Gray Band */
+.gray-band {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #DC2626 0%, #9ca3af 50%, #DC2626 100%);
+    margin: 1.5rem 0;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Copyright Footer */
 .copyright-footer {
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -436,8 +446,8 @@ body {
 }
 
 .copyright-content p:first-child {
-    font-weight: 600;
-    color: #ffffff;
+    font-weight: 300;
+    color: #ffffffa0;
     font-size: 1rem;
 }
 
