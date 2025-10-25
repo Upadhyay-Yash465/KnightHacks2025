@@ -1652,9 +1652,9 @@ body {
 
         .data-point:hover {
             transform: translate(-50%, -50%) scale(1.4);
-            box-shadow: 0 0 20px rgba(220, 38, 38, 0.7);
-            background: #DC2626;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             border-color: #ffffff;
+            border-width: 4px;
         }
 
         .data-point::after {

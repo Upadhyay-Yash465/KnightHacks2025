@@ -483,7 +483,7 @@ function renderEmotionGraph() {
                 
                 path.setAttribute('d', pathData);
                 path.setAttribute('stroke', emotionColors[emotion]);
-                path.setAttribute('stroke-width', '2');
+                path.setAttribute('stroke-width', '3');
                 path.setAttribute('fill', 'none');
                 path.setAttribute('opacity', '0.8');
                 path.setAttribute('stroke-linecap', 'round');
@@ -505,6 +505,8 @@ function renderEmotionGraph() {
                 dataPoint.className = 'data-point';
                 dataPoint.style.top = `${point.yPosition}%`;
                 dataPoint.style.left = `${point.xPosition}%`;
+                dataPoint.style.backgroundColor = emotionColors[point.emotion];
+                dataPoint.style.borderColor = emotionColors[point.emotion];
                 dataPoint.setAttribute('data-time', point.time);
                 dataPoint.setAttribute('data-emotion', point.emotion);
                 dataPoint.setAttribute('data-intensity', point.intensity || '5');
