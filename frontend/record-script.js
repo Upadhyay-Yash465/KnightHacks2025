@@ -327,6 +327,8 @@ function showSuggestionPopup(wordElement) {
         return;
     }
     
+    console.log('All elements found, proceeding with popup show');
+    
     // Store reference to current word element for scroll updates
     window.currentWordElement = wordElement;
     
@@ -354,6 +356,11 @@ function showSuggestionPopup(wordElement) {
     
     // Show popup
     popup.classList.remove('hidden');
+    
+    // Force visibility for testing
+    popup.style.display = 'block';
+    popup.style.visibility = 'visible';
+    popup.style.opacity = '1';
     
     console.log('Popup classes after show:', popup.className);
     console.log('Popup computed style:', {
