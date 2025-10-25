@@ -1445,13 +1445,35 @@ body {
         }
 
         .graph-container {
-            height: 250px;
+            height: 350px;
             position: relative;
-            background: rgba(26, 26, 26, 0.5);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(26, 26, 26, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
             overflow: hidden;
-            padding: 20px 40px 40px 20px;
+            padding: 30px 50px 50px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .axis-label {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .y-axis-label {
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: center;
+        }
+
+        .x-axis-label {
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .graph-axes {
@@ -1462,36 +1484,38 @@ body {
 
         .y-axis-labels {
             position: absolute;
-            left: -15px;
+            left: -20px;
             top: 0;
-            width: 15px;
+            width: 20px;
             height: 100%;
         }
 
         .y-label {
             position: absolute;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.7rem;
-            color: #9ca3af;
+            font-size: 0.8rem;
+            color: #d1d5db;
             transform: translateY(-50%);
-            font-weight: 500;
+            font-weight: 600;
+            text-align: right;
+            width: 100%;
         }
 
         .x-axis-labels {
             position: absolute;
-            bottom: -20px;
+            bottom: -25px;
             left: 0;
             width: 100%;
-            height: 20px;
+            height: 25px;
         }
 
         .x-label {
             position: absolute;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.7rem;
-            color: #9ca3af;
+            font-size: 0.8rem;
+            color: #d1d5db;
             transform: translateX(-50%);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .grid-lines {
@@ -1504,7 +1528,7 @@ body {
 
         .grid-line {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .grid-line.horizontal {
@@ -1515,6 +1539,11 @@ body {
         .grid-line.vertical {
             height: 100%;
             width: 1px;
+        }
+
+        .grid-line.horizontal:nth-child(3) {
+            background: rgba(255, 255, 255, 0.15);
+            height: 2px;
         }
 
         .emotion-line {
@@ -1532,7 +1561,7 @@ body {
             top: 20%;
             left: 0%;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, 
                 #DC2626 0%, 
                 #FF8C00 20%, 
@@ -1540,8 +1569,9 @@ body {
                 #DC2626 60%, 
                 #FF8C00 80%, 
                 #10B981 100%);
-            border-radius: 1px;
-            opacity: 0.8;
+            border-radius: 2px;
+            opacity: 0.9;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
         }
 
         .data-points {
@@ -1554,39 +1584,44 @@ body {
 
         .data-point {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: #ffffff;
-            border: 2px solid #DC2626;
+            border: 3px solid #DC2626;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .data-point:hover {
-            transform: translate(-50%, -50%) scale(1.3);
-            box-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+            transform: translate(-50%, -50%) scale(1.4);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.7);
             background: #DC2626;
+            border-color: #ffffff;
         }
 
         .data-point::after {
             content: attr(data-emotion) ' (' attr(data-intensity) '/10)';
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(26, 26, 26, 0.9);
+            background: rgba(26, 26, 26, 0.95);
             color: #ffffff;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 600;
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .data-point:hover::after {

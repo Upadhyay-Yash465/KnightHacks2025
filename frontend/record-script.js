@@ -449,9 +449,40 @@ function updateEmotionGraph(emotionData) {
         
         path.setAttribute('d', pathData);
         path.setAttribute('stroke', '#DC2626');
-        path.setAttribute('stroke-width', '2');
+        path.setAttribute('stroke-width', '3');
         path.setAttribute('fill', 'none');
-        path.setAttribute('opacity', '0.8');
+        path.setAttribute('opacity', '0.9');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        
+        // Add gradient definition for the line
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        gradient.setAttribute('id', 'emotionGradient');
+        gradient.setAttribute('x1', '0%');
+        gradient.setAttribute('y1', '0%');
+        gradient.setAttribute('x2', '100%');
+        gradient.setAttribute('y2', '0%');
+        
+        const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop1.setAttribute('offset', '0%');
+        stop1.setAttribute('stop-color', '#DC2626');
+        
+        const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop2.setAttribute('offset', '50%');
+        stop2.setAttribute('stop-color', '#FF8C00');
+        
+        const stop3 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop3.setAttribute('offset', '100%');
+        stop3.setAttribute('stop-color', '#10B981');
+        
+        gradient.appendChild(stop1);
+        gradient.appendChild(stop2);
+        gradient.appendChild(stop3);
+        defs.appendChild(gradient);
+        svg.appendChild(defs);
+        
+        path.setAttribute('stroke', 'url(#emotionGradient)');
         
         svg.appendChild(path);
         emotionLine.appendChild(svg);
