@@ -2974,3 +2974,218 @@ input:checked + .toggle-slider:before {
         font-size: 0.85rem;
     }
 }
+
+/* Actionable Advice Modal */
+.advice-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.advice-modal.hidden {
+    display: none;
+}
+
+.advice-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.advice-modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.advice-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.advice-modal-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.advice-modal-close {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.advice-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.advice-modal-close svg {
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+}
+
+.advice-modal-body {
+    padding: 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.advice-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    min-height: 200px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(220, 38, 38, 0.2);
+    border-top-color: #DC2626;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.advice-content {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.advice-content h1,
+.advice-content h2,
+.advice-content h3 {
+    color: #ffffff;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.advice-content h1 {
+    font-size: 1.75rem;
+}
+
+.advice-content h2 {
+    font-size: 1.5rem;
+}
+
+.advice-content h3 {
+    font-size: 1.25rem;
+}
+
+.advice-content p {
+    margin-bottom: 1rem;
+}
+
+.advice-content ul,
+.advice-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.advice-content li {
+    margin-bottom: 0.5rem;
+}
+
+.advice-content strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.advice-content code {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 4px;
+    padding: 0.2rem 0.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+
+.advice-content blockquote {
+    border-left: 3px solid #DC2626;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .advice-modal {
+        padding: 1rem;
+    }
+    
+    .advice-modal-content {
+        max-height: 90vh;
+        border-radius: 16px;
+    }
+    
+    .advice-modal-header {
+        padding: 1.5rem;
+    }
+    
+    .advice-modal-title {
+        font-size: 1.5rem;
+    }
+    
+    .advice-modal-body {
+        padding: 1.5rem;
+    }
+    
+    .advice-content {
+        font-size: 1rem;
+    }
+}

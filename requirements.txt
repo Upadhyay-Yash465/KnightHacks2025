@@ -1,7 +1,12 @@
 fastapi
-uvicorn
+uvicorn[standard]
 faster-whisper
 librosa
 numpy
 opencv-python
+google-generativeai
+python-dotenv
+python-multipart
+soundfile
+pillow
 

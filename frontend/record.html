@@ -141,6 +141,15 @@
                             <p><strong>Status:</strong> Ready for analysis</p>
                         </div>
 
+                        <div class="context-input hidden" id="contextInput">
+                            <label for="speechContext" style="display: block; margin-bottom: 10px; font-weight: 600; color: #fff;">Speech Context (Optional)</label>
+                            <textarea 
+                                id="speechContext" 
+                                placeholder="Provide context about your speech (e.g., presentation topic, audience, purpose)..." 
+                                style="width: 100%; min-height: 100px; padding: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; font-family: 'Space Grotesk', sans-serif; resize: vertical; margin-bottom: 15px;"
+                            ></textarea>
+                        </div>
+
                         <div class="preview-actions hidden" id="previewActions">
                             <button class="btn-secondary" onclick="resetRecording()">Record Another Speech</button>
                             <button class="btn-primary" onclick="uploadRecording()">Upload and Get Feedback</button>
@@ -166,7 +175,7 @@
                                     <h3 class="feedback-box-title">Transcription</h3>
                                     <p class="feedback-box-subtitle">Your speech has been transcribed</p>
                                 </div>
-                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                <button class="advice-btn" onclick="getActionableAdvice('transcriber')">
                                     <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -176,7 +185,7 @@
                             </div>
                             <div class="transcription-content">
                                 <div class="transcription-text" id="transcriptionText">
-                                    <p>Hello everyone, thank you for coming to today's presentation. I'm happy to share with you our new findings and ideas about the future of technology.</p>
+                                    <!-- Populated dynamically from backend -->
                                 </div>
                             </div>
                         </div>
@@ -187,7 +196,7 @@
                                 <div class="transcription-header-left">
                                     <h3 class="feedback-box-title">Audio Analysis</h3>
                                 </div>
-                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                <button class="advice-btn" onclick="getActionableAdvice('voice')">
                                     <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -199,42 +208,42 @@
                                 <div class="audio-metrics">
                                     <div class="metric-item">
                                         <div class="metric-label">Prosody</div>
-                                        <div class="metric-value" id="prosodyValue">Good</div>
-                                        <div class="metric-score" id="prosodyScore">8.2/10</div>
+                                        <div class="metric-value" id="prosodyValue"></div>
+                                        <div class="metric-score" id="prosodyScore"></div>
                                     </div>
-                            <div class="metric-item">
+                                    <div class="metric-item">
                                         <div class="metric-label">Tone</div>
-                                        <div class="metric-value" id="toneValue">Professional</div>
-                                        <div class="metric-score" id="toneScore">7.8/10</div>
-                                </div>
+                                        <div class="metric-value" id="toneValue"></div>
+                                        <div class="metric-score" id="toneScore"></div>
+                                    </div>
                                     <div class="metric-item">
                                         <div class="metric-label">Pitch</div>
-                                        <div class="metric-value" id="pitchValue">Optimal</div>
-                                        <div class="metric-score" id="pitchScore">8.5/10</div>
-                            </div>
-                            <div class="metric-item">
+                                        <div class="metric-value" id="pitchValue"></div>
+                                        <div class="metric-score" id="pitchScore"></div>
+                                    </div>
+                                    <div class="metric-item">
                                         <div class="metric-label">Speed</div>
-                                        <div class="metric-value" id="speedValue">Moderate</div>
-                                        <div class="metric-score" id="speedScore">7.9/10</div>
+                                        <div class="metric-value" id="speedValue"></div>
+                                        <div class="metric-score" id="speedScore"></div>
                                     </div>
                                 </div>
                                 <div class="audio-explanations">
                                     <div class="explanation-item">
                                         <h4 class="explanation-title">Prosody</h4>
-                                        <p class="explanation-text" id="prosodyExplanation">Your speech rhythm and intonation patterns are well-structured, creating engaging delivery with appropriate emphasis on key points.</p>
+                                        <p class="explanation-text" id="prosodyExplanation"></p>
                                     </div>
                                     <div class="explanation-item">
                                         <h4 class="explanation-title">Tone</h4>
-                                        <p class="explanation-text" id="toneExplanation">Your professional tone conveys confidence and authority while remaining approachable to your audience.</p>
+                                        <p class="explanation-text" id="toneExplanation"></p>
                                     </div>
                                     <div class="explanation-item">
                                         <h4 class="explanation-title">Pitch</h4>
-                                        <p class="explanation-text" id="pitchExplanation">Your vocal pitch variation is optimal, avoiding monotony while maintaining clarity and engagement throughout your speech.</p>
+                                        <p class="explanation-text" id="pitchExplanation"></p>
                                     </div>
                                     <div class="explanation-item">
                                         <h4 class="explanation-title">Speed</h4>
-                                        <p class="explanation-text" id="speedExplanation">Your speaking pace is well-balanced, allowing listeners to follow your ideas while maintaining their attention and interest.</p>
-                            </div>
+                                        <p class="explanation-text" id="speedExplanation"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -245,10 +254,10 @@
                                 <div class="transcription-header-left">
                                     <h3 class="feedback-box-title">Visual Analysis</h3>
                                 </div>
-                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                <button class="advice-btn" onclick="getActionableAdvice('emotion')">
                                     <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12 C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                     Get Actionable Advice
                                 </button>
@@ -260,13 +269,13 @@
                                     <div class="ratings-section">
                                         <div class="rating-item">
                                             <div class="rating-label">Emotions</div>
-                                            <div class="rating-value" id="emotionRating">8.4/10</div>
-                                            <div class="rating-description" id="emotionDescription">Expressive and engaging</div>
+                                            <div class="rating-value" id="emotionRating"></div>
+                                            <div class="rating-description" id="emotionDescription"></div>
                                         </div>
                                         <div class="rating-item">
                                             <div class="rating-label">Gestures</div>
-                                            <div class="rating-value" id="gestureRating">7.9/10</div>
-                                            <div class="rating-description" id="gestureDescription">Natural and purposeful</div>
+                                            <div class="rating-value" id="gestureRating"></div>
+                                            <div class="rating-description" id="gestureDescription"></div>
                                         </div>
                                     </div>
                                     
@@ -376,12 +385,7 @@
                                                 
                                                 <!-- Data points -->
                                                 <div class="data-points" id="dataPoints">
-                                                    <div class="data-point" style="top: 20%; left: 0%;" data-time="0:00" data-emotion="Confident" data-intensity="8"></div>
-                                                    <div class="data-point" style="top: 35%; left: 20%;" data-time="0:15" data-emotion="Enthusiastic" data-intensity="6"></div>
-                                                    <div class="data-point" style="top: 60%; left: 40%;" data-time="0:30" data-emotion="Calm" data-intensity="4"></div>
-                                                    <div class="data-point" style="top: 25%; left: 60%;" data-time="0:45" data-emotion="Confident" data-intensity="7"></div>
-                                                    <div class="data-point" style="top: 15%; left: 80%;" data-time="1:00" data-emotion="Excited" data-intensity="9"></div>
-                                                    <div class="data-point" style="top: 45%; left: 100%;" data-time="1:15" data-emotion="Satisfied" data-intensity="5"></div>
+                                                    <!-- Populated dynamically from backend -->
                                                 </div>
                                             </div>
                                         </div>
@@ -394,19 +398,19 @@
                                     <div class="breakdown-content" id="breakdownContent">
                                         <div class="breakdown-item">
                                             <div class="breakdown-category">Emotional Range</div>
-                                            <div class="breakdown-text" id="emotionalRangeText">Your speech demonstrated excellent emotional variety, transitioning smoothly between confidence, enthusiasm, and calmness. This kept the audience engaged throughout your presentation.</div>
+                                            <div class="breakdown-text" id="emotionalRangeText"></div>
                                         </div>
                                         <div class="breakdown-item">
                                             <div class="breakdown-category">Gesture Effectiveness</div>
-                                            <div class="breakdown-text" id="gestureEffectivenessText">Your hand gestures were well-timed and purposeful, emphasizing key points without being distracting. The natural flow of your movements enhanced your message delivery.</div>
+                                            <div class="breakdown-text" id="gestureEffectivenessText"></div>
                                         </div>
                                         <div class="breakdown-item">
                                             <div class="breakdown-category">Facial Expressions</div>
-                                            <div class="breakdown-text" id="facialExpressionsText">Your facial expressions were authentic and matched your emotional tone. The genuine smile and engaged eye contact created a strong connection with your audience.</div>
+                                            <div class="breakdown-text" id="facialExpressionsText"></div>
                                         </div>
                                         <div class="breakdown-item">
                                             <div class="breakdown-category">Overall Impact</div>
-                                            <div class="breakdown-text" id="overallImpactText">The combination of your emotional expression and physical gestures created a compelling and memorable presentation that effectively communicated your message.</div>
+                                            <div class="breakdown-text" id="overallImpactText"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -417,6 +421,27 @@
             </div>
         </section>
     </main>
+
+    <!-- Actionable Advice Modal -->
+    <div id="adviceModal" class="advice-modal hidden">
+        <div class="advice-modal-overlay" onclick="closeAdviceModal()"></div>
+        <div class="advice-modal-content">
+            <div class="advice-modal-header">
+                <h2 class="advice-modal-title" id="adviceModalTitle">Actionable Advice</h2>
+                <button class="advice-modal-close" onclick="closeAdviceModal()">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="advice-modal-body" id="adviceModalBody">
+                <div class="advice-loading">
+                    <div class="spinner"></div>
+                    <p>Generating personalized advice...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Simple Footer for Record Page -->
     <footer class="record-page-footer">
@@ -434,11 +459,6 @@
 
     <script src="record-script.js?t=1735689600"></script>
     <script>
-        function getActionableAdvice() {
-            // Add your actionable advice logic here
-            alert('Actionable advice feature coming soon!');
-        }
-
         function handleProfileClick() {
             // Check if user is logged in
             const isLoggedIn = localStorage.getItem('userToken') || localStorage.getItem('isLoggedIn');

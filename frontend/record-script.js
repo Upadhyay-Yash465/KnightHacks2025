@@ -96,6 +96,7 @@ function startRecording() {
             statusText.textContent = 'Recorded Video (Mirrored)';
             downloadButton.classList.remove('hidden');
             fileInfo.classList.remove('hidden');
+            document.getElementById('contextInput').classList.remove('hidden');
             previewActions.classList.remove('hidden');
         };
         
@@ -195,6 +196,7 @@ function handleFileUpload(event) {
         statusText.textContent = 'Uploaded Video (Mirrored)';
         downloadButton.classList.remove('hidden');
         fileInfo.classList.remove('hidden');
+        document.getElementById('contextInput').classList.remove('hidden');
         previewActions.classList.remove('hidden');
     }
 }
@@ -210,21 +212,52 @@ function downloadVideo() {
     }
 }
 
-function uploadRecording() {
+async function uploadRecording() {
+    if (!recordedVideoBlob) {
+        alert('No video available to upload');
+        return;
+    }
+
     const uploadProgress = document.getElementById('uploadProgress');
     const previewActions = document.getElementById('previewActions');
     const reportContent = document.getElementById('report-content');
+    const contextInput = document.getElementById('speechContext');
+    
+    const context = contextInput ? contextInput.value : '';
     
     previewActions.classList.add('hidden');
     uploadProgress.classList.remove('hidden');
     
-    // Simulate upload and analysis
-    setTimeout(() => {
+    try {
+        // Create FormData and append video + context
+        const formData = new FormData();
+        formData.append('video', recordedVideoBlob, 'speech.webm');
+        formData.append('context', context);
+        
+        // Call backend API
+        const response = await fetch('http://localhost:8000/analyze', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Analysis failed: ${response.statusText}`);
+        }
+        
+        const analysisData = await response.json();
+        
+        // Populate frontend with results
+        populateAnalysisResults(analysisData);
+        
         uploadProgress.classList.add('hidden');
         if (reportContent) {
             reportContent.classList.remove('hidden');
         }
-    }, 2000);
+    } catch (error) {
+        console.error('Error uploading and analyzing:', error);
+        uploadProgress.classList.add('hidden');
+        alert('Error analyzing your speech. Please ensure the backend server is running and try again.');
+    }
 }
 
 function resetRecording() {
@@ -237,6 +270,8 @@ function resetRecording() {
     const previewActions = document.getElementById('previewActions');
     const uploadProgress = document.getElementById('uploadProgress');
     const reportContent = document.getElementById('report-content');
+    const contextInput = document.getElementById('contextInput');
+    const speechContext = document.getElementById('speechContext');
     
     // Reset video elements
     videoPreview.classList.remove('hidden');
@@ -248,6 +283,10 @@ function resetRecording() {
     downloadButton.classList.add('hidden');
     fileInfo.classList.add('hidden');
     previewActions.classList.add('hidden');
+    contextInput.classList.add('hidden');
+    if (speechContext) {
+        speechContext.value = '';
+    }
     
     // Reset other elements
     uploadProgress.classList.add('hidden');
@@ -416,6 +455,17 @@ function updateElement(elementId, value) {
 // Global variable to store emotion data
 window.emotionData = null;
 
+// Define emotion colors
+const emotionColors = {
+    'Happy': '#F59E0B',
+    'Angry': '#DC2626',
+    'Disgust': '#10B981',
+    'Fear': '#8B5CF6',
+    'Surprise': '#EC4899',
+    'Sad': '#3B82F6',
+    'Neutral': '#6B7280'
+};
+
 function updateEmotionGraph(emotionData) {
     window.emotionData = emotionData;
     renderEmotionGraph();
@@ -444,17 +494,6 @@ function renderEmotionGraph() {
         svg.style.width = '100%';
         svg.style.height = '100%';
         svg.style.pointerEvents = 'none';
-        
-        // Define emotion colors
-        const emotionColors = {
-            'Happy': '#F59E0B',
-            'Angry': '#DC2626',
-            'Disgust': '#10B981',
-            'Fear': '#8B5CF6',
-            'Surprise': '#EC4899',
-            'Sad': '#3B82F6',
-            'Neutral': '#6B7280'
-        };
         
         // Create lines for each active emotion
         activeEmotions.forEach(emotion => {
@@ -631,3 +670,252 @@ function updateBreakdownContent(breakdownData) {
 //     ]
 // };
 // updateVisualAnalysis(visualData);
+
+// Store analysis data globally for actionable advice requests
+window.currentAnalysisData = null;
+
+// Populate all analysis results from backend
+function populateAnalysisResults(data) {
+    window.currentAnalysisData = data;
+    
+    // Populate transcription
+    if (data.transcription) {
+        const transcriptionText = document.getElementById('transcriptionText');
+        if (transcriptionText) {
+            transcriptionText.innerHTML = `<p>${data.transcription.text}</p>`;
+        }
+    }
+    
+    // Populate voice analysis
+    if (data.voice) {
+        const voice = data.voice;
+        
+        // Update metric values and scores
+        updateMetric('prosodyValue', getQualityLabel(voice.prosody));
+        updateMetric('prosodyScore', `${voice.prosody.toFixed(1)}/10`);
+        
+        updateMetric('toneValue', getQualityLabel(voice.volume));
+        updateMetric('toneScore', `${voice.volume.toFixed(1)}/10`);
+        
+        updateMetric('pitchValue', getQualityLabel(voice.pitch));
+        updateMetric('pitchScore', `${voice.pitch.toFixed(1)}/10`);
+        
+        updateMetric('speedValue', getQualityLabel(voice.speed));
+        updateMetric('speedScore', `${voice.speed.toFixed(1)}/10`);
+        
+        // Generate and populate dynamic explanations
+        updateMetric('prosodyExplanation', generateAudioExplanation('Prosody', voice.prosody));
+        updateMetric('toneExplanation', generateAudioExplanation('Volume', voice.volume));
+        updateMetric('pitchExplanation', generateAudioExplanation('Pitch', voice.pitch));
+        updateMetric('speedExplanation', generateAudioExplanation('Speed', voice.speed));
+    }
+    
+    // Populate emotion analysis
+    if (data.emotions) {
+        updateElement('emotionRating', `${data.emotions.overall_rating.toFixed(1)}/10`);
+        updateElement('emotionDescription', getQualityLabel(data.emotions.overall_rating));
+        
+        // Populate gesture rating if available
+        if (data.emotions.gesture_rating !== undefined) {
+            updateElement('gestureRating', `${data.emotions.gesture_rating.toFixed(1)}/10`);
+            updateElement('gestureDescription', data.emotions.gesture_description || '');
+        }
+        
+        // Convert timeline data to graph format
+        const emotionGraphData = convertEmotionTimelineToGraph(data.emotions.timeline);
+        updateEmotionGraph(emotionGraphData);
+    }
+}
+
+// Convert numeric score to quality label
+function getQualityLabel(score) {
+    if (score >= 9) return 'Excellent';
+    if (score >= 8) return 'Very Good';
+    if (score >= 7) return 'Good';
+    if (score >= 6) return 'Moderate';
+    if (score >= 5) return 'Fair';
+    return 'Needs Improvement';
+}
+
+// Generate dynamic audio metric explanations based on score
+function generateAudioExplanation(metricName, score) {
+    const explanations = {
+        'Prosody': {
+            high: "Your speech rhythm and intonation patterns are excellent, creating engaging delivery with natural emphasis on key points. This dynamic prosody keeps your audience interested.",
+            medium: "Your speech rhythm shows good variation with room for improvement. Consider practicing emphasizing key words and varying your intonation to add more dynamism to your delivery.",
+            low: "Your speech rhythm could benefit from more variation. Practice varying your intonation and adding pauses for emphasis to create a more engaging delivery pattern."
+        },
+        'Volume': {
+            high: "Your volume consistency is excellent, maintaining steady projection throughout. This creates a confident and professional impression while ensuring clear audibility.",
+            medium: "Your volume is generally consistent with minor fluctuations. Work on maintaining steady projection, especially during longer sentences, to ensure all content is equally audible.",
+            low: "Your volume shows noticeable inconsistency. Practice breathing exercises and projection techniques to maintain steady volume throughout your speech for better clarity."
+        },
+        'Pitch': {
+            high: "Your vocal pitch variation is optimal, creating natural expressiveness while avoiding monotony. This engaging pitch range maintains listener interest throughout your presentation.",
+            medium: "Your pitch variation is adequate but could be more dynamic. Try expanding your vocal range and varying pitch more deliberately to emphasize important points.",
+            low: "Your pitch tends toward monotone, which can reduce engagement. Practice vocal exercises to expand your range and consciously vary pitch to add emotion and emphasis."
+        },
+        'Speed': {
+            high: "Your speaking pace is well-balanced, allowing listeners to absorb information while maintaining momentum. This optimal speed demonstrates confidence and consideration for your audience.",
+            medium: "Your speaking speed is reasonable but could be optimized. Be mindful of pacing, especially during complex explanations, to ensure comprehension without losing energy.",
+            low: "Your speaking pace needs adjustment. If too fast, practice pausing for emphasis; if too slow, work on maintaining energy and momentum to keep your audience engaged."
+        }
+    };
+    
+    const category = score >= 8 ? 'high' : (score >= 6 ? 'medium' : 'low');
+    return explanations[metricName]?.[category] || 'Your performance in this metric has been analyzed.';
+}
+
+// Convert emotion timeline to graph format
+function convertEmotionTimelineToGraph(timeline) {
+    const graphData = [];
+    
+    timeline.forEach((entry, index) => {
+        // For each emotion in the entry, create a data point
+        const emotions = ['Happy', 'Angry', 'Disgust', 'Fear', 'Surprise', 'Sad', 'Neutral'];
+        emotions.forEach(emotion => {
+            if (entry[emotion] && entry[emotion] > 0) {
+                graphData.push({
+                    xPosition: (index / (timeline.length - 1)) * 100,
+                    yPosition: 100 - entry[emotion],
+                    time: entry.time,
+                    emotion: emotion,
+                    intensity: entry[emotion]
+                });
+            }
+        });
+    });
+    
+    return graphData;
+}
+
+// Handle actionable advice button clicks
+async function getActionableAdvice(agentType) {
+    if (!window.currentAnalysisData) {
+        showAdviceModal('Error', 'Please analyze your speech first before requesting advice.');
+        return;
+    }
+    
+    // Determine modal title based on agent type
+    let modalTitle = 'Actionable Advice';
+    if (agentType === 'transcriber') {
+        modalTitle = 'Speech Content Advice';
+    } else if (agentType === 'voice') {
+        modalTitle = 'Voice & Delivery Advice';
+    } else if (agentType === 'emotion') {
+        modalTitle = 'Expression & Body Language Advice';
+    }
+    
+    // Show modal with loading state
+    showAdviceModal(modalTitle, null, true);
+    
+    try {
+        const contextInput = document.getElementById('speechContext');
+        const context = contextInput ? contextInput.value : '';
+        
+        const response = await fetch('http://localhost:8000/actionable-advice', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                agent_type: agentType,
+                analysis_data: window.currentAnalysisData,
+                context: context
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Failed to get advice: ${response.statusText}`);
+        }
+        
+        const result = await response.json();
+        
+        // If emotion advice and breakdown is available, populate the breakdown sections
+        if (agentType === 'emotion' && result.breakdown) {
+            updateElement('emotionalRangeText', result.breakdown.emotional_range);
+            updateElement('gestureEffectivenessText', result.breakdown.gesture_effectiveness);
+            updateElement('facialExpressionsText', result.breakdown.facial_expressions);
+            updateElement('overallImpactText', result.breakdown.overall_impact);
+        }
+        
+        // Show advice in modal
+        showAdviceModal(modalTitle, result.advice);
+        
+    } catch (error) {
+        console.error('Error getting actionable advice:', error);
+        showAdviceModal('Error', `Failed to generate advice. Please try again.\n\nError: ${error.message}`);
+    }
+}
+
+// Show advice modal
+function showAdviceModal(title, content, loading = false) {
+    const modal = document.getElementById('adviceModal');
+    const modalTitle = document.getElementById('adviceModalTitle');
+    const modalBody = document.getElementById('adviceModalBody');
+    
+    if (!modal || !modalTitle || !modalBody) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
+    // Set title
+    modalTitle.textContent = title;
+    
+    // Set content or show loading
+    if (loading) {
+        modalBody.innerHTML = `
+            <div class="advice-loading">
+                <div class="spinner"></div>
+                <p>Generating personalized advice...</p>
+            </div>
+        `;
+    } else {
+        modalBody.innerHTML = `<div class="advice-content">${formatAdviceContent(content)}</div>`;
+    }
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close advice modal
+function closeAdviceModal() {
+    const modal = document.getElementById('adviceModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+}
+
+// Format advice content (convert markdown-like formatting to HTML)
+function formatAdviceContent(text) {
+    if (!text) return '';
+    
+    // Convert markdown-style formatting to HTML
+    let formatted = text
+        // Convert **bold** to <strong>
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        // Convert numbered lists
+        .replace(/^(\d+)\.\s+(.+)$/gm, '<li>$2</li>')
+        // Convert bullet points
+        .replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>')
+        // Convert line breaks to paragraphs
+        .split('\n\n')
+        .map(para => {
+            if (para.trim().startsWith('<li>')) {
+                return '<ul>' + para + '</ul>';
+            }
+            return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+        })
+        .join('');
+    
+    return formatted;
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeAdviceModal();
+    }
+});

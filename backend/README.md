@@ -1,69 +1,98 @@
-# AI Speech Coach Backend
+# Aesop AI Backend
 
-A clean, organized backend for AI-powered speech analysis with multimodal capabilities.
+Simple, efficient backend for AI-powered public speaking analysis.
 
-## Project Structure
+## Setup
 
-```
-ai-speech-coach-backend/
-├── src/                          # Source code
-│   ├── api/                      # API layer
-│   │   ├── __init__.py
-│   │   ├── main.py              # FastAPI application
-│   │   └── routes.py            # API routes
-│   ├── agents/                   # AI analysis agents
-│   │   ├── __init__.py
-│   │   ├── context_agent.py     # Text analysis
-│   │   ├── gemini_voice_agent.py # Voice analysis
-│   │   ├── multimodal_orchestrator.py # Main orchestrator
-│   │   └── video_agent.py       # Video analysis
-│   ├── services/                 # Core services
-│   │   ├── __init__.py
-│   │   ├── audio_service.py     # Audio processing
-│   │   ├── nlp_service.py       # NLP processing
-│   │   ├── vision_service.py    # Video processing
-│   │   └── whisper_service.py   # Speech transcription
-│   ├── utils/                    # Utilities
-│   │   ├── __init__.py
-│   │   └── logger.py            # Logging utilities
-│   └── config/                   # Configuration
-│       ├── __init__.py
-│       └── settings.py          # Environment settings
-├── tests/                        # Test files
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_agents.py
-│   └── test_services.py
-├── scripts/                      # Utility scripts
-│   ├── setup_env.py
-│   ├── server_manager.py
-│   └── create_test_audio.py
-├── docs/                         # Documentation
-│   ├── README.md
-│   ├── API.md
-│   └── DEPLOYMENT.md
-├── env/                          # Environment files
-│   ├── .env.example
-│   └── .env
-├── requirements.txt              # Dependencies
-└── main.py                       # Entry point
+1. **Install dependencies:**
+   ```bash
+   pip install -r ../requirements.txt
+   ```
+
+2. **Set up environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your GEMINI_API_KEY
+   ```
+
+3. **Install ffmpeg (required for audio extraction):**
+   - macOS: `brew install ffmpeg`
+   - Ubuntu: `sudo apt-get install ffmpeg`
+   - Windows: Download from https://ffmpeg.org/
+
+## Running the Server
+
+```bash
+cd backend
+python main.py
 ```
 
-## Features
-
-- **Multimodal Analysis**: Text, Audio, and Visual analysis
-- **Real AI Integration**: Uses Gemini API for comprehensive analysis
-- **Structured Output**: Returns organized JSON with scores and feedback
-- **File Upload Support**: Handles audio and video file uploads
-- **Error Handling**: Robust error handling and fallbacks
-
-## Quick Start
-
-1. Install dependencies: `pip install -r requirements.txt`
-2. Set up environment: `python scripts/setup_env.py`
-3. Run the server: `python main.py`
+The server will start on `http://localhost:8000`
 
 ## API Endpoints
 
-- `GET /` - Health check
-- `POST /analyze` - Main analysis endpoint (accepts audio/video files)
+### POST /analyze
+Analyzes a video and returns transcription, voice, and emotion analysis.
+
+**Request:**
+- `video`: Video file (multipart/form-data)
+- `context`: Optional speech context (string)
+
+**Response:**
+```json
+{
+  "transcription": {
+    "text": "...",
+    "quality_score": 7.5
+  },
+  "voice": {
+    "pitch": 8.2,
+    "volume": 7.8,
+    "speed": 7.9,
+    "prosody": 8.5
+  },
+  "emotions": {
+    "timeline": [...],
+    "overall_rating": 8.4
+  }
+}
+```
+
+### POST /actionable-advice
+Generates specific advice based on analysis results.
+
+**Request:**
+```json
+{
+  "agent_type": "transcriber|voice|emotion",
+  "analysis_data": {...},
+  "context": "optional context"
+}
+```
+
+**Response:**
+```json
+{
+  "advice": "Detailed actionable advice..."
+}
+```
+
+## Architecture
+
+- **Data Agents (DA):** Analyze speech quality
+  - `transcriber.py`: Speech-to-text + quality scoring
+  - `voice_analyzer.py`: Pitch, volume, speed, prosody analysis
+  - `emotion_analyzer.py`: Facial emotion tracking
+  
+- **Action Agent (AA):** Generates improvement advice
+  - `action_agent.py`: Personalized coaching based on DA results
+
+- **Utilities:**
+  - `video_utils.py`: Video/audio processing
+
+## Notes
+
+- First run downloads Whisper model (~150MB)
+- Uses CPU by default (AMD-friendly)
+- Temporary files are cleaned up automatically
+
