@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Aesop.AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-dot"></div>
+                <span>Aesop.AI</span>
+            </div>
+            <nav class="nav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="record.html" class="nav-link">Record</a>
+            </nav>
+            <div class="header-actions">
+                <div class="profile-btn active">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <div class="profile-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <button class="avatar-edit-btn">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">John Doe</h1>
+                        <p class="profile-email">john.doe@example.com</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Sessions</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">8.2</span>
+                                <span class="stat-label">Avg Score</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">7</span>
+                                <span class="stat-label">Days Streak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Profile Tabs -->
+                    <div class="profile-tabs">
+                        <button class="profile-tab active" onclick="switchProfileTab('overview')">Overview</button>
+                        <button class="profile-tab" onclick="switchProfileTab('progress')">Progress</button>
+                        <button class="profile-tab" onclick="switchProfileTab('settings')">Settings</button>
+                    </div>
+
+                    <!-- Overview Tab -->
+                    <div class="profile-tab-content active" id="overview-tab">
+                        <div class="overview-grid">
+                            <!-- Recent Sessions -->
+                            <div class="overview-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Recent Sessions</h3>
+                                    <a href="record.html" class="card-action">Start New</a>
+                                </div>
+                                <div class="sessions-list">
+                                    <div class="session-item">
+                                        <div class="session-info">
+                                            <h4 class="session-title">Presentation Practice</h4>
+                                            <p class="session-date">2 hours ago</p>
+                                        </div>
+                                        <div class="session-score">
+                                            <span class="score-value">8.5</span>
+                                            <span class="score-label">/10</span>
+                                        </div>
+                                    </div>
+                                    <div class="session-item">
+                                        <div class="session-info">
+                                            <h4 class="session-title">Interview Prep</h4>
+                                            <p class="session-date">1 day ago</p>
+                                        </div>
+                                        <div class="session-score">
+                                            <span class="score-value">7.8</span>
+                                            <span class="score-label">/10</span>
+                                        </div>
+                                    </div>
+                                    <div class="session-item">
+                                        <div class="session-info">
+                                            <h4 class="session-title">Public Speaking</h4>
+                                            <p class="session-date">3 days ago</p>
+                                        </div>
+                                        <div class="session-score">
+                                            <span class="score-value">9.1</span>
+                                            <span class="score-label">/10</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Performance Metrics -->
+                            <div class="overview-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Performance Metrics</h3>
+                                </div>
+                                <div class="metrics-grid">
+                                    <div class="metric-card">
+                                        <div class="metric-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 1C13.1 1 14 1.9 14 3V11C14 12.1 13.1 13 12 13C10.9 13 10 12.1 10 11V3C10 1.9 10.9 1 12 1Z" fill="#DC2626"/>
+                                                <path d="M19 10V12C19 15.9 15.9 19 12 19C8.1 19 5 15.9 5 12V10H7V12C7 14.8 9.2 17 12 17C14.8 17 17 14.8 17 12V10H19Z" fill="#DC2626"/>
+                                            </svg>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-value">8.2</span>
+                                            <span class="metric-label">Clarity</span>
+                                        </div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="12" cy="12" r="10" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                                <circle cx="12" cy="12" r="3" fill="#DC2626"/>
+                                            </svg>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-value">7.9</span>
+                                            <span class="metric-label">Confidence</span>
+                                        </div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 3V21H21" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                                <path d="M9 9L12 6L16 10L20 6" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                            </svg>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-value">8.7</span>
+                                            <span class="metric-label">Progress</span>
+                                        </div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9 12L11 14L15 10" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#DC2626" stroke-width="2" fill="none"/>
+                                            </svg>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-value">8.0</span>
+                                            <span class="metric-label">Overall</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Achievements -->
+                            <div class="overview-card achievements-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Achievements</h3>
+                                </div>
+                                <div class="achievements-grid">
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#FFD700"/>
+                                            </svg>
+                                        </div>
+                                        <div class="achievement-info">
+                                            <h4 class="achievement-title">First Steps</h4>
+                                            <p class="achievement-desc">Complete your first session</p>
+                                        </div>
+                                    </div>
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#FFD700"/>
+                                            </svg>
+                                        </div>
+                                        <div class="achievement-info">
+                                            <h4 class="achievement-title">Streak Master</h4>
+                                            <p class="achievement-desc">Practice for 7 days straight</p>
+                                        </div>
+                                    </div>
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#FFD700"/>
+                                            </svg>
+                                        </div>
+                                        <div class="achievement-info">
+                                            <h4 class="achievement-title">High Achiever</h4>
+                                            <p class="achievement-desc">Score 9+ in a session</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Tab -->
+                    <div class="profile-tab-content" id="progress-tab">
+                        <div class="progress-content">
+                            <div class="progress-chart">
+                                <h3 class="progress-title">Performance Over Time</h3>
+                                <div class="chart-container">
+                                    <div class="chart-placeholder">
+                                        <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+                                                    <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path d="M20,180 Q60,160 100,140 T180,120 T260,100 T340,80 T380,60" stroke="url(#progressGradient)" stroke-width="3" fill="none"/>
+                                            <circle cx="20" cy="180" r="4" fill="#DC2626"/>
+                                            <circle cx="100" cy="140" r="4" fill="#DC2626"/>
+                                            <circle cx="180" cy="120" r="4" fill="#DC2626"/>
+                                            <circle cx="260" cy="100" r="4" fill="#DC2626"/>
+                                            <circle cx="340" cy="80" r="4" fill="#DC2626"/>
+                                            <circle cx="380" cy="60" r="4" fill="#DC2626"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-stats">
+                                <div class="progress-stat">
+                                    <h4 class="stat-title">Total Sessions</h4>
+                                    <span class="stat-value">24</span>
+                                </div>
+                                <div class="progress-stat">
+                                    <h4 class="stat-title">Average Score</h4>
+                                    <span class="stat-value">8.2</span>
+                                </div>
+                                <div class="progress-stat">
+                                    <h4 class="stat-title">Improvement</h4>
+                                    <span class="stat-value">+15%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="profile-tab-content" id="settings-tab">
+                        <div class="settings-content">
+                            <div class="settings-section">
+                                <h3 class="settings-title">Account Settings</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label for="display-name" class="form-label">Display Name</label>
+                                        <input type="text" id="display-name" class="form-input" value="John Doe">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" id="email" class="form-input" value="john.doe@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="timezone" class="form-label">Timezone</label>
+                                        <select id="timezone" class="form-select">
+                                            <option value="UTC-5">Eastern Time (UTC-5)</option>
+                                            <option value="UTC-6">Central Time (UTC-6)</option>
+                                            <option value="UTC-7">Mountain Time (UTC-7)</option>
+                                            <option value="UTC-8">Pacific Time (UTC-8)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3 class="settings-title">Preferences</h3>
+                                <div class="preferences-list">
+                                    <div class="preference-item">
+                                        <div class="preference-info">
+                                            <h4 class="preference-title">Email Notifications</h4>
+                                            <p class="preference-desc">Receive updates about your progress</p>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-item">
+                                        <div class="preference-info">
+                                            <h4 class="preference-title">Weekly Reports</h4>
+                                            <p class="preference-desc">Get weekly performance summaries</p>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="preference-item">
+                                        <div class="preference-info">
+                                            <h4 class="preference-title">Practice Reminders</h4>
+                                            <p class="preference-desc">Daily reminders to practice</p>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3 class="settings-title">Account Actions</h3>
+                                <div class="account-actions">
+                                    <button class="btn-outline">Change Password</button>
+                                    <button class="btn-outline">Export Data</button>
+                                    <button class="btn-outline danger">Delete Account</button>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <div class="signout-section">
+                                    <button class="btn-primary signout-btn" onclick="signOut()">
+                                        <svg class="signout-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <polyline points="16,17 21,12 16,7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Gray Band -->
+            <div class="gray-band"></div>
+            
+            <!-- Copyright Footer -->
+            <div class="copyright-footer">
+                <div class="copyright-content">
+                    <p>&copy; 2025 Aesop.AI All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in, redirect to auth if not
+        const isLoggedIn = localStorage.getItem('userToken') || localStorage.getItem('isLoggedIn');
+        if (!isLoggedIn) {
+            window.location.href = 'auth.html';
+        }
+
+        function switchProfileTab(tab) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            document.querySelector(`[onclick="switchProfileTab('${tab}')"]`).classList.add('active');
+            document.getElementById(`${tab}-tab`).classList.add('active');
+        }
+
+        // Add click handler to profile button to stay on profile page
+        document.querySelector('.profile-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Already on profile page, do nothing
+        });
+
+        // Sign out function
+        function signOut() {
+            // Add your sign out logic here
+            // For demo purposes, redirect to auth page
+            if (confirm('Are you sure you want to sign out?')) {
+                // Clear any stored authentication data
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userData');
+                
+                // Redirect to authentication page
+                window.location.href = 'auth.html';
+            }
+        }
+    </script>
+</body>
+</html>

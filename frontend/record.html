@@ -22,7 +22,7 @@
                 <a href="record.html" class="nav-link active">Record</a>
             </nav>
             <div class="header-actions">
-                <div class="profile-btn">
+                <div class="profile-btn" onclick="handleProfileClick()">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -159,37 +159,24 @@
                 <!-- AI Feedback Report -->
                 <div id="report-content" class="report-content hidden">
                     <div class="feedback-container">
-                        <!-- Box 1: Text Transcription with Highlights -->
+                        <!-- Box 1: Text Transcription -->
                         <div class="feedback-box transcription-box">
                             <div class="feedback-box-header">
-                                <h3 class="feedback-box-title">Transcription Analysis</h3>
-                                <p class="feedback-box-subtitle">Click highlighted words to see AI suggestions</p>
+                                <div class="transcription-header-left">
+                                    <h3 class="feedback-box-title">Transcription</h3>
+                                    <p class="feedback-box-subtitle">Your speech has been transcribed</p>
+                                </div>
+                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                    <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Get Actionable Advice
+                                </button>
                             </div>
                             <div class="transcription-content">
                                 <div class="transcription-text" id="transcriptionText">
-                                    <p>Hello everyone, <span class="highlight-word" data-suggestion="Hello, everyone" data-reason="Adding a comma after 'Hello' improves readability and follows proper greeting punctuation.">Hello everyone</span>, thank you for <span class="highlight-word" data-suggestion="joining" data-reason="'Joining' is more specific and professional than 'coming' in this context.">coming</span> to today's presentation. I'm <span class="highlight-word" data-suggestion="excited" data-reason="'Excited' conveys more enthusiasm and engagement than 'happy'.">happy</span> to share with you our <span class="highlight-word" data-suggestion="latest" data-reason="'Latest' is more precise and current than 'new'.">new</span> findings and <span class="highlight-word" data-suggestion="insights" data-reason="'Insights' is more professional and specific than 'ideas'.">ideas</span> about the future of technology.</p>
-                                </div>
-                                <div class="suggestion-popup hidden" id="suggestionPopup">
-                                    <div class="popup-content">
-                                        <div class="popup-header">
-                                            <span class="popup-title">AI Suggestion</span>
-                                            <button class="popup-close" onclick="closeSuggestionPopup()">×</button>
-                                        </div>
-                                        <div class="popup-body">
-                                            <div class="original-word">
-                                                <span class="word-label">Original:</span>
-                                                <span class="word-text" id="originalWord"></span>
-                                            </div>
-                                            <div class="suggested-word">
-                                                <span class="word-label">Suggested:</span>
-                                                <span class="word-text" id="suggestedWord"></span>
-                                            </div>
-                                            <div class="reason">
-                                                <span class="reason-label">Why:</span>
-                                                <span class="reason-text" id="reasonText"></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p>Hello everyone, thank you for coming to today's presentation. I'm happy to share with you our new findings and ideas about the future of technology.</p>
                                 </div>
                             </div>
                         </div>
@@ -197,8 +184,16 @@
                         <!-- Box 2: Audio Analysis -->
                         <div class="feedback-box audio-analysis-box">
                             <div class="feedback-box-header">
-                                <h3 class="feedback-box-title">Audio Analysis</h3>
-                                <p class="feedback-box-subtitle">Voice characteristics and delivery metrics</p>
+                                <div class="transcription-header-left">
+                                    <h3 class="feedback-box-title">Audio Analysis</h3>
+                                </div>
+                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                    <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Get Actionable Advice
+                                </button>
                             </div>
                             <div class="audio-analysis-content">
                                 <div class="audio-metrics">
@@ -247,8 +242,16 @@
                         <!-- Box 3: Visual Analysis -->
                         <div class="feedback-box visual-analysis-box">
                             <div class="feedback-box-header">
-                                <h3 class="feedback-box-title">Visual Analysis</h3>
-                                <p class="feedback-box-subtitle">Emotional expression and gesture effectiveness</p>
+                                <div class="transcription-header-left">
+                                    <h3 class="feedback-box-title">Visual Analysis</h3>
+                                </div>
+                                <button class="advice-btn" onclick="getActionableAdvice()">
+                                    <svg class="advice-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Get Actionable Advice
+                                </button>
                             </div>
                             <div class="visual-analysis-content">
                                 <!-- Top Section: Ratings and Graph -->
@@ -430,5 +433,24 @@
     </footer>
 
     <script src="record-script.js?t=1735689600"></script>
+    <script>
+        function getActionableAdvice() {
+            // Add your actionable advice logic here
+            alert('Actionable advice feature coming soon!');
+        }
+
+        function handleProfileClick() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('userToken') || localStorage.getItem('isLoggedIn');
+            
+            if (isLoggedIn) {
+                // User is logged in, go to profile page
+                window.location.href = 'profile.html';
+            } else {
+                // User is not logged in, go to auth page
+                window.location.href = 'auth.html';
+            }
+        }
+    </script>
 </body>
 </html>

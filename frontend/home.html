@@ -22,7 +22,7 @@
                 <a href="record.html" class="nav-link">Record</a>
             </nav>
             <div class="header-actions">
-                <div class="profile-btn">
+                <div class="profile-btn" onclick="handleProfileClick()">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -175,5 +175,19 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        function handleProfileClick() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('userToken') || localStorage.getItem('isLoggedIn');
+            
+            if (isLoggedIn) {
+                // User is logged in, go to profile page
+                window.location.href = 'profile.html';
+            } else {
+                // User is not logged in, go to auth page
+                window.location.href = 'auth.html';
+            }
+        }
+    </script>
 </body>
 </html>
