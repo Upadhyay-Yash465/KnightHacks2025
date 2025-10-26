@@ -1,0 +1,30 @@
+# AI Speech Coach Requirements
+# Note: Requires Python 3.8-3.11 (mediapipe limitation)
+
+# Google Generative AI (Gemini)
+google-generativeai>=0.8.0
+
+# MediaPipe for video analysis (Python 3.8-3.11 only)
+mediapipe>=0.10.0
+
+# OpenCV for video processing
+opencv-python>=4.8.0
+
+# Audio processing
+librosa>=0.10.0
+numpy>=1.24.0
+
+# Speech transcription
+faster-whisper>=0.9.0
+
+# OpenAI for NLP feedback
+openai>=1.0.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# FastAPI for web API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.20
+
